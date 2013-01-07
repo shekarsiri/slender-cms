@@ -28,7 +28,8 @@ class Base_Controller extends Controller {
 	{
 		// Check if the user is logged in.
 		//
-		$this->beforeFilter('auth', array('except' => $this->whitelist));
+		// $this->beforeFilter('auth', array('except' => $this->whitelist));
+		$this->filter('before', 'auth')->except($this->whitelist);
 	}
 
 }

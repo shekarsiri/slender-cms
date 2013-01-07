@@ -11,10 +11,8 @@ class Account_Controller extends Base_Controller
 	 * @var      array
 	 */
 	protected $whitelist = array(
-		'get_login',
-		'post_login',
-		'get_register',
-		'post_register'
+		'login',
+		'register',
 	);
 
 	/**
