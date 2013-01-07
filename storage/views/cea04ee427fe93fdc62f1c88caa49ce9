@@ -1,0 +1,21 @@
+
+<?php //  Web site Title --}} ?><?php \Laravel\Section::start('title'); ?>
+@parent
+:: Sites
+<?php \Laravel\Section::stop(); ?>
+
+<?php //  New Laravel 4 Feature in use --}} ?><?php \Laravel\Section::start('styles'); ?>
+@parent
+body {
+	background: #f2f2f2;
+}
+<?php \Laravel\Section::stop(); ?>
+
+<?php //  Content --}} ?><?php \Laravel\Section::start('content'); ?>
+<div class="page-header">
+	<h1>Sites</h1>
+</div>
+<?php echo  var_dump($sites) ; ?>
+<?php \Laravel\Section::stop(); ?>
+
+<?php echo view('layouts.default')->with(get_defined_vars())->render(); ?>
