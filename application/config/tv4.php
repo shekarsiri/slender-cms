@@ -1,9 +1,16 @@
 <?php
 
 return array(
-	'sites' => array(
+	'modules'	=> array(
+		
+		'site' => array(
+				'name' 	=> '',
+				'url'	=> '',
+			),
+		'show' => array(
 				'name' 	=> '',
 				'url'	=> '',
 			),
 
+		),
 );

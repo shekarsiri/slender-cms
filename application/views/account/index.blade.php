@@ -77,57 +77,39 @@ body {
 		<div class="controls">
 			
 			<label class="checkbox inline">
-			  <input type="checkbox" id="inlineCheckbox1" value="option1"> All
+			  <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));"> All
 			</label>
 			<label class="checkbox inline">
-			  <input type="checkbox" id="inlineCheckbox2" value="option2"> All
+			  <input type="checkbox" onclick="$('input.access_edit').prop('checked', $(this).prop('checked'));"> All
 			</label>
 			<label class="checkbox inline">
-			  <input type="checkbox" id="inlineCheckbox3" value="option3"> All
+			  <input type="checkbox" onclick="$('input.access_delete').prop('checked', $(this).prop('checked'));"> All
 			</label>
 
 		</div>
 	</div>
 	<!-- ./ permissions -->
 
+	
+@foreach (Config::get('tv4.modules') as $module => $conf)
 	<!-- permissions -->
 	<div class="control-group">
-		<label class="control-label">Site</label>
+		<label class="control-label">{{ ucfirst($module) }}</label>
 		<div class="controls">
-			
 			<label class="checkbox inline">
-			  <input type="checkbox" id="inlineCheckbox1" value="option1"> View
+			  <input type="checkbox" name="access[{{ $module }}][view]" class='access_view' @if ($user->has_access("{$module}.view")) checked @endif value="1"> View
 			</label>
 			<label class="checkbox inline">
-			  <input type="checkbox" id="inlineCheckbox2" value="option2"> Edit
+			  <input type="checkbox" name="access[{{ $module }}][edit]"  class='access_edit' @if ($user->has_access("{$module}.edit")) checked @endif value="1"> Edit
 			</label>
 			<label class="checkbox inline">
-			  <input type="checkbox" id="inlineCheckbox3" value="option3"> Delete
+			  <input type="checkbox" name="access[{{ $module }}][delete]"  class='access_delete' @if ($user->has_access("{$module}.delete")) checked @endif value="1"> Delete
 			</label>
 
 		</div>
 	</div>
 	<!-- ./ permissions -->
-
-	<!-- permissions -->
-	<div class="control-group">
-		<label class="control-label">Video</label>
-		<div class="controls">
-			
-			<label class="checkbox inline">
-			  <input type="checkbox" id="inlineCheckbox1" value="option1"> View
-			</label>
-			<label class="checkbox inline">
-			  <input type="checkbox" id="inlineCheckbox2" value="option2"> Edit
-			</label>
-			<label class="checkbox inline">
-			  <input type="checkbox" id="inlineCheckbox3" value="option3"> Delete
-			</label>
-
-		</div>
-	</div>
-	<!-- ./ permissions -->
-
+@endforeach
 
 
 	<!-- Update button -->

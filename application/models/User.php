@@ -10,6 +10,12 @@ class User extends Mongor\Model {
     //     return $this->has_and_belongs_to_many('Role','User', 'role_id', '_id');
     // }
 
+    public function has_access($to){
+    	list($module, $access) = explode('.', $to, 2);
+    	
+    	return (isset($this->access[$module][$access]) && $this->access[$module][$access]) ? true : false;
+    }
+
 
 	public static function find($id){
 

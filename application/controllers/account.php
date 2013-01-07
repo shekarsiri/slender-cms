@@ -58,6 +58,8 @@ class Account_Controller extends Base_Controller
 		//
 		$inputs = Input::all();
 
+// var_dump($inputs);
+// die;
 		// Validate the inputs.
 		//
 		$validator = Validator::make($inputs, $rules);
@@ -72,6 +74,7 @@ class Account_Controller extends Base_Controller
 			$user->first_name = Input::get('first_name');
 			$user->last_name  = Input::get('last_name');
 			$user->email      = Input::get('email');
+			$user->access 	  = Input::get('access');
 
 			if (Input::get('password') !== '')
 			{
