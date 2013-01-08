@@ -66,6 +66,8 @@ body {
 	</div>
 	<!-- ./ password confirm -->
 
+<?php if ($user->has_access("user.view")): ?> 
+
 
 	<!-- permissions -->
 	<div class="control-group">
@@ -107,6 +109,7 @@ body {
 	<!-- ./ permissions -->
 <?php endforeach; ?>
 
+<?php endif; ?>
 
 	<!-- Update button -->
 	<div class="control-group">

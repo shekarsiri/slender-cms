@@ -60,6 +60,9 @@
 							<li {{ (URI::is('/') ? 'class="active"' : '') }}><a href="{{ URL::to('') }}">TV4</a></li>
 
 							@if (Auth::check())
+								@if (Auth::user()->has_access("user.view"))
+									<li {{ (URI::is('user') ? 'class="active"' : '') }}><a href="{{ URL::to('user') }}">Users</a></li>
+								@endif
 							<li {{ (URI::is('site') ? 'class="active"' : '') }}><a href="{{ URL::to('site') }}">Sites</a></li>
 							<li {{ (URI::is('show') ? 'class="active"' : '') }}><a href="{{ URL::to('show') }}">Shows</a></li>
 							<li {{ (URI::is('episode') ? 'class="active"' : '') }}><a href="{{ URL::to('episode') }}">Episodes</a></li>

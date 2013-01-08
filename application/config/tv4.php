@@ -8,8 +8,8 @@ return array(
 				'url'	=> '',
 			),
 		'show' => array(
-				'name' 	=> '',
-				'url'	=> '',
+			),
+		'episode' => array(
 			),
 
 		),

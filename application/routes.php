@@ -35,6 +35,7 @@
 Route::controller('account');
 Route::controller('home');
 
+Route::controller('user');
 Route::controller('site');
 
 /*

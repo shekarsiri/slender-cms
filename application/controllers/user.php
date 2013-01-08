@@ -1,19 +1,8 @@
 <?php
 
-class Account_Controller extends Base_Controller
+class User_Controller extends Base_Controller
 {
 	public $restful = true;
-
-	/**
-	 * Let's whitelist all the methods we want to allow guests to visit!
-	 *
-	 * @access   protected
-	 * @var      array
-	 */
-	protected $whitelist = array(
-		'login',
-		'register',
-	);
 
 	/**
 	 * Main account page.
@@ -23,9 +12,24 @@ class Account_Controller extends Base_Controller
 	 */
 	public function get_index()
 	{
-		// Show the page.
-		//
-		return View::make('account/index')->with('user', Auth::user());
+		if(!Auth::user()->has_access("user.view")){
+			return Response::error('401');
+		}
+		return View::make('user/index')->with('users', User::get());
+	}
+
+	/**
+	 * Main users page.
+	 *
+	 * @access   public
+	 * @return   View
+	 */
+	public function get_edit($id = null)
+	{
+		if(!Auth::user()->has_access("user.view")){
+			return Response::error('401');
+		}
+		return View::make('user/edit')->with('user', User::find($id));
 	}
 
 	/**
@@ -34,8 +38,9 @@ class Account_Controller extends Base_Controller
 	 * @access   public
 	 * @return   Redirect
 	 */
-	public function post_index()
+	public function post_edit($id = null)
 	{
+
 		// Declare the rules for the form validation.
 		//
 		$rules = array(
@@ -68,7 +73,7 @@ class Account_Controller extends Base_Controller
 		{
 			// Create the user.
 			//
-			$user =  User::find(Auth::user()->_id);
+			$user =  User::find($id);
 			$user->first_name = Input::get('first_name');
 			$user->last_name  = Input::get('last_name');
 			$user->email      = Input::get('email');
@@ -83,12 +88,12 @@ class Account_Controller extends Base_Controller
 
 			// Redirect to the register page.
 			//
-			return Redirect::to('account')->with('success', 'Account updated with success!');
+			return Redirect::to('user')->with('success', 'Account updated with success!');
 		}
 
 		// Something went wrong.
 		//
-		return Redirect::to('account')->with_input()->with_errors($validator);
+		return Redirect::to('user/edit/'.$id)->with_input()->with_errors($validator);
 	}
 
 	/**
@@ -214,7 +219,7 @@ class Account_Controller extends Base_Controller
 
 			return Redirect::to('account/register')->with_input()->with('error', "Account with email '".Input::get('email')."' already exist!");
 		}	
-			
+
 		if ($validator->passes())
 		{
 			// Create the user.
