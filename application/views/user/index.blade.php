@@ -30,7 +30,7 @@ body {
          <tbody>
         	@foreach ($users as $id => $user)
                 <tr @if ($user->has_access("user.view")) class="success" @endif >
-                  <td>{{ $user->fullName() }}</td>
+                  <td><a href="user/edit/{{ $id }}">{{ $user->fullName() }}</a></td>
                   <td>{{ $user->email }}</td>
                   <td style="text-align: center;"><button class="btn btn-mini btn-primary" onclick="document.location='user/edit/{{ $id }}'" type="button">edit</button></td>
                 </tr>
