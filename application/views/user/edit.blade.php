@@ -3,7 +3,7 @@
 {{-- Web site Title --}}
 @section('title')
 @parent
-:: Edit Account
+:: Edit User
 @endsection
 
 {{-- New Laravel 4 Feature in use --}}
