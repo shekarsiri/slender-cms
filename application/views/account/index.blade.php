@@ -92,6 +92,25 @@ body {
 	</div>
 	<!-- ./ permissions -->
 
+@if (Auth::user()->has_access("user.edit") || Auth::user()->has_access("user.view"))
+	<!-- permissions -->
+	<div class="control-group">
+		<label class="control-label">User</label>
+		<div class="controls">
+			<label class="checkbox inline">
+			  <input type="checkbox" name="access[user][view]" class='access_view' @if ($user->has_access("user.view")) checked @endif value="1"> View
+			</label>
+			<label class="checkbox inline">
+			  <input type="checkbox" name="access[user][edit]"  class='access_edit' @if ($user->has_access("user.edit")) checked @endif value="1"> Edit
+			</label>
+			<label class="checkbox inline">
+			  <input type="checkbox" name="access[user][delete]"  class='access_delete' @if ($user->has_access("user.delete")) checked @endif value="1"> Delete
+			</label>
+
+		</div>
+	</div>
+	<!-- ./ permissions -->
+@endif	
 	
 @foreach (Config::get('tv4.modules') as $module => $conf)
 	<!-- permissions -->

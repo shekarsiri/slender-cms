@@ -3,7 +3,7 @@
 {{-- Web site Title --}}
 @section('title')
 @parent
-:: Account
+:: Edit Account
 @endsection
 
 {{-- New Laravel 4 Feature in use --}}
@@ -17,7 +17,7 @@ body {
 {{-- Content --}}
 @section('content')
 <div class="page-header">
-	<h1>Edit your settings</h1>
+	<h1>User settings</h1>
 </div>
 
 <form method="post" action="" class="form-horizontal">
