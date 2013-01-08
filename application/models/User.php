@@ -19,11 +19,11 @@ class User extends Mongor\Model {
 
 	public static function find($id){
 
-		if($id instanceof MongoId){
-			$id = $id->__toString();
+		if(!$id instanceof MongoId){
+			$id = new MongoId($id);
 		}
 
-		return User::first(array('_id'=> $id));
+		return User::where(array('_id'=> $id))->first();
 	}
 
 	/**
