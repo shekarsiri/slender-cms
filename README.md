@@ -1,67 +1,32 @@
-# [Laravel](http://laravel.com) - A PHP Framework For Web Artisans
+tv4 cms
+===
 
-Laravel is a clean and classy framework for PHP web development. Freeing you
-from spaghetti code, Laravel helps you create wonderful applications using
-simple, expressive syntax. Development should be a creative experience that you
-enjoy, not something that is painful. Enjoy the fresh air.
+Setup
+=====
 
-[Official Website & Documentation](http://laravel.com)
-
-## Feature Overview
-
-- Simple routing using Closures or controllers.
-- Views and templating.
-- Driver based session and cache handling.
-- Database abstraction with query builder.
-- Authentication.
-- Migrations.
-- PHPUnit Integration.
-- A lot more.
-
-## A Few Examples
-
-### Hello World:
-
-```php
-<?php
-
-Route::get('/', function()
-{
-	return "Hello World!";
-});
+From your terminal
+```
+git clone git@github.com:dwsla/slender-cms.git
+cd tv4
 ```
 
-### Passing Data To Views:
+* If needed, download & install virtual box 4.2.x: http://www.virtualbox.org/wiki/Downloads
+* If needed, Download & install vagrant latest: http://downloads.vagrantup.com/
 
-```php
-<?php
+From the terminal (inside slender-cms dir):
+* vagrant box add centos-6.3-i386 https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-centos-6.3-i386.box #Only if you havent used this box before.
+* vagrant up
+* vagrant ssh (if on windows: http://vagrantup.com/v1/docs/getting-started/ssh.html)
+* Verify that the storage/views directory is writable.
 
-Route::get('user/(:num)', function($id)
-{
-	$user = DB::table('users')->find($id);
+This should give you a working tv4 on http://localhost:4002 from the host, and http://localhost:80 from inside the VM.
 
-	return View::make('profile')->with('user', $user);
-});
+Once you ssh in, cd to /vagrant and run:
+```
+php composer.phar --verbose install
 ```
 
-### Redirecting & Flashing Data To The Session:
+Navigate to your application in a web browser: http://localhost:4002.
 
-```php
-<?php
 
-return Redirect::to('profile')->with('message', 'Welcome Back!');
-```
 
-## Contributing to Laravel
-
-Contributions are encouraged and welcome; however, please review the Developer
-Certificate of Origin in the "license.txt" file included in the repository. All
-commits must be signed off using the `-s` switch.
-
-```bash
-git commit -s -m "this commit will be signed off automatically!"
-```
-
-## License
-
-Laravel is open-sourced software licensed under the MIT License.
