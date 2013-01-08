@@ -13,8 +13,9 @@ class Site_Controller extends Base_Controller
 	 */
 	public function get_index()
 	{
-		// Show the page.
-		//
+		if(!Auth::user()->has_access("site.view")){
+			return Response::error('401');
+		}
 		return View::make('site/index')->with('sites', Site::all());
 	}
 
@@ -25,12 +26,14 @@ class Site_Controller extends Base_Controller
 	 * @access   public
 	 * @return   View
 	 */
-	public function get_new()
+	public function get_edit($id = null)
 	{
-		// Show the page.
-		//
-		return View::make('site/edit')->with('site', Auth::user());
+		if(!Auth::user()->has_access("site.edit")){
+			return Response::error('401');
+		}
+		return View::make('site/edit')->with('site', Site::find($id));
 	}
+
 
 	/**
 	 *
@@ -38,8 +41,11 @@ class Site_Controller extends Base_Controller
 	 * @access   public
 	 * @return   Redirect
 	 */
-	public function post_new()
+	public function post_edit($id = null)
 	{
+		if(!Auth::user()->has_access("site.edit")){
+			return Response::error('401');
+		}
 		// Declare the rules for the form validation.
 		//
 		$rules = array(
@@ -48,142 +54,6 @@ class Site_Controller extends Base_Controller
 			'url'      => 'required',
 		);
 
-		$inputs = Input::all();
-
-		// Validate the inputs.
-		//
-		$validator = Validator::make($inputs, $rules);
-
-		// Check if the form validates with success.
-		//
-		if ($validator->passes())
-		{
-			// Create the site.
-			//
-			$site = new Site;
-			$site->name = Input::get('name');
-			$site->description  = Input::get('description');
-			$site->url      = Input::get('url');
-			$site->save();
-
-			// Redirect to the site page.
-			//
-			return Redirect::to('site')->with('success', 'Site has been successfully created!');
-		}
-
-		// Something went wrong.
-		//
-		return Redirect::to('site/new')->with_input()->with_errors($validator);
-	}
-
-	/**
-	 * Login form page.
-	 *
-	 * @access   public
-	 * @return   View
-	 */
-	public function get_login()
-	{
-		// Are we logged in?
-		//
-		if (Auth::check())
-		{
-			return Redirect::to('account');
-		}
-
-		// Show the page.
-		//
-		return View::make('account/login');
-	}
-
-	/**
-	 * Login form processing.
-	 *
-	 * @access   public
-	 * @return   Redirect
-	 */
-	public function post_login()
-	{
-		// Declare the rules for the form validation.
-		//
-		$rules = array(
-			'email'    => 'Required|Email',
-			'password' => 'Required'
-		);
-
-		// Get all the inputs.
-		//
-		$email = Input::get('email');
-		$password = Input::get('password');
-
-		// Validate the inputs.
-		//
-		$validator = Validator::make(Input::all(), $rules);
-
-		// Check if the form validates with success.
-		//
-		if ($validator->passes())
-		{
-			// Try to log the user in.
-			//
-			if (Auth::attempt(array('email' => $email, 'password' => $password)))
-			{
-				// Redirect to the users page.
-				//
-				return Redirect::to('/')->with('success', 'You have logged in successfully');
-			}
-			else
-			{
-				// Redirect to the login page.
-				//
-				return Redirect::to('account/login')->with('error', 'Email/password invalid.');
-			}
-		}
-
-		// Something went wrong.
-		//
-
-		return Redirect::to('account/login')->with_errors($validator);
-	}
-
-	/**
-	 * User account creation form page.
-	 *
-	 * @access   public
-	 * @return   View
-	 */
-	public function get_register()
-	{
-		// Are we logged in?
-		//
-		if (Auth::check())
-		{
-			return Redirect::to('account');
-		}
-
-		// Show the page.
-		//
-		return View::make('account/register');
-	}
-
-	/**
-	 * User account creation form processing.
-	 *
-	 * @access   public
-	 * @return   Redirect
-	 */
-	public function post_register()
-	{
-		// Declare the rules for the form validation.
-		//
-		$rules = array(
-			'first_name'            => 'Required',
-			'last_name'             => 'Required',
-			'email'                 => 'Required|Email',
-			'password'              => 'Required|Confirmed',
-			'password_confirmation' => 'Required'
-		);
-
 		// Get all the inputs.
 		//
 		$inputs = Input::all();
@@ -196,38 +66,26 @@ class Site_Controller extends Base_Controller
 		//
 		if ($validator->passes())
 		{
-			// Create the user.
+			// Create the site
 			//
-			$site = new Site;
+			if(is_null($id)){
+				$site = new Site;
+			}else{
+				$site =  Site::find($id);
+			}
 			$site->name = Input::get('name');
 			$site->description  = Input::get('description');
 			$site->url      = Input::get('url');
 			$site->save();
+
 
 			// Redirect to the register page.
 			//
-			return Redirect::to('account/register')->with('success', 'Account created with success!');
+			return Redirect::to('site')->with('success', 'Site updated with success!');
 		}
 
 		// Something went wrong.
 		//
-		return Redirect::to('account/register')->with_input()->with_errors($validator);
-	}
-
-	/**
-	 * Logout page.
-	 *
-	 * @access   public
-	 * @return   Redirect
-	 */
-	public function get_logout()
-	{
-		// Log the user out.
-		//
-		Auth::logout();
-
-		// Redirect to the users page.
-		//
-		return Redirect::to('account/login')->with('success', 'Logged out with success!');
+		return Redirect::to('site/edit/'.$id)->with_input()->with_errors($validator);
 	}
 }

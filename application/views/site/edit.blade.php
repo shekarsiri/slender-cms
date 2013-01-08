@@ -43,7 +43,7 @@ body {
 
 	<!-- Site URL -->
 	<div class="control-group {{ $errors->has('url') ? 'error' : '' }}">
-		<label class="control-label" for="url">Site Name</label>
+		<label class="control-label" for="url">Site URL</label>
 		<div class="controls">
 			<input type="text" name="url" id="url" value="{{  Input::old('url', $site->url) }}" />
 			{{ $errors->first('url') }}
@@ -55,7 +55,7 @@ body {
 	<!-- Update button -->
 	<div class="control-group">
 		<div class="controls">
-			<button type="submit" class="btn">@if (isset($site)) Update @else Save @endif</button>
+			<button type="submit" class="btn">@if ($site->name) Update @else Save @endif</button>
 		</div>
 	</div>
 	<!-- ./ update button -->

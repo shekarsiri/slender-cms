@@ -4,6 +4,7 @@
 
 class User extends Mongor\Model {
 
+	public static $collection = 'user';
 
     // public function Roles()
     // {
@@ -23,7 +24,7 @@ class User extends Mongor\Model {
 			$id = new MongoId($id);
 		}
 
-		return User::where(array('_id'=> $id))->first();
+		return self::where(array('_id'=> $id))->first();
 	}
 
 	/**
