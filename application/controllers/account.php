@@ -209,7 +209,6 @@ class Account_Controller extends Base_Controller
 
 		// Check if the form validates with success.
 		//
-
 		if(User::where(array('email' => Input::get('email')))->first()->_id){
 
 			return Redirect::to('account/register')->with_input()->with('error', "Account with email '".Input::get('email')."' already exist!");
