@@ -15,9 +15,10 @@ bash "setup_epel" do
   user "root"
   cwd "/tmp"
   code <<-EOH
-    wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-7.noarch.rpm
+    wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
     wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-    rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
+    rpm -Uvh remi-release-6*.rpm
+    rpm -Uvh epel-release-6*.rpm
     sed -i s/enabled=0/enabled=1/ /etc/yum.repos.d/remi.repo
     yum clean all
   EOH
