@@ -103,8 +103,8 @@ return array(
 		    'timeout'    => '',
 		    'replicaSet' => '',
 		    'db'         => 'tv4',
-		    'username'   => 'tv4',
-		    'password'   => 'tv4',
+		    'username'   => '',
+		    'password'   => '',
 		),
 
 	),
