@@ -73,37 +73,38 @@ body {
 
 @if (Auth::user()->has_access("user.edit")) 
 
-
+<div class="well">
 	<!-- permissions -->
 	<div class="control-group">
 		<label class="control-label">Permissions</label>
 		<div class="controls">
 			
-			<label class="checkbox inline">
+			<label class="checkbox inline span1">
 			  <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));"> All
 			</label>
-			<label class="checkbox inline">
+			<label class="checkbox inline span1">
 			  <input type="checkbox" onclick="$('input.access_edit').prop('checked', $(this).prop('checked'));"> All
 			</label>
-			<label class="checkbox inline">
+			<label class="checkbox inline span1">
 			  <input type="checkbox" onclick="$('input.access_delete').prop('checked', $(this).prop('checked'));"> All
 			</label>
 
 		</div>
 	</div>
+	<hr/>
 	<!-- ./ permissions -->
 @if (Auth::user()->has_access("user.edit") || Auth::user()->has_access("user.view"))
 	<!-- permissions -->
 	<div class="control-group">
 		<label class="control-label">User</label>
 		<div class="controls">
-			<label class="checkbox inline">
+			<label class="checkbox inline span1">
 			  <input type="checkbox" name="access[user][view]" class='access_view' @if ($user->has_access("user.view")) checked @endif value="1"> View
 			</label>
-			<label class="checkbox inline">
+			<label class="checkbox inline span1">
 			  <input type="checkbox" name="access[user][edit]"  class='access_edit' @if ($user->has_access("user.edit")) checked @endif value="1"> Edit
 			</label>
-			<label class="checkbox inline">
+			<label class="checkbox inline span1">
 			  <input type="checkbox" name="access[user][delete]"  class='access_delete' @if ($user->has_access("user.delete")) checked @endif value="1"> Delete
 			</label>
 
@@ -117,13 +118,13 @@ body {
 	<div class="control-group">
 		<label class="control-label">{{ ucfirst($module) }}</label>
 		<div class="controls">
-			<label class="checkbox inline">
+			<label class="checkbox inline span1">
 			  <input type="checkbox" name="access[{{ $module }}][view]" class='access_view' @if ($user->has_access("{$module}.view")) checked @endif value="1"> View
 			</label>
-			<label class="checkbox inline">
+			<label class="checkbox inline span1">
 			  <input type="checkbox" name="access[{{ $module }}][edit]"  class='access_edit' @if ($user->has_access("{$module}.edit")) checked @endif value="1"> Edit
 			</label>
-			<label class="checkbox inline">
+			<label class="checkbox inline span1">
 			  <input type="checkbox" name="access[{{ $module }}][delete]"  class='access_delete' @if ($user->has_access("{$module}.delete")) checked @endif value="1"> Delete
 			</label>
 
@@ -131,13 +132,14 @@ body {
 	</div>
 	<!-- ./ permissions -->
 @endforeach
-
+</div>
 @endif
 
 	<!-- Update button -->
 	<div class="control-group">
 		<div class="controls">
-			<button type="submit" class="btn">Update</button>
+			<button type="submit" class="btn btn-primary">Update</button>
+			<button type="button" onclick="document.location='/user'" class="btn">Cancel</button>
 		</div>
 	</div>
 	<!-- ./ update button -->
