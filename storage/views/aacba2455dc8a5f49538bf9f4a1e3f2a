@@ -66,6 +66,8 @@ body {
 	</div>
 	<!-- ./ password confirm -->
 
+
+
 <?php if ($user->has_access("user.view")): ?> 
 
 

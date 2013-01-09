@@ -210,7 +210,6 @@ class Account_Controller extends Base_Controller
 		// Check if the form validates with success.
 		//
 		if(User::where(array('email' => Input::get('email')))->first()->_id){
-
 			return Redirect::to('account/register')->with_input()->with('error', "Account with email '".Input::get('email')."' already exist!");
 		}	
 			
@@ -223,6 +222,15 @@ class Account_Controller extends Base_Controller
 			$user->last_name  = Input::get('last_name');
 			$user->email      = Input::get('email');
 			$user->password   = Hash::make(Input::get('password'));
+			if(!User::first()->_id){
+				$user->access = array(
+					'user' => array(
+						'view' 	=> 1,
+						'edit' 	=> 1,
+						'delete'=> 1,
+					),
+				);
+			}	
 			$user->save();
 
 			// Redirect to the register page.

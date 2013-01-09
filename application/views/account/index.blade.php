@@ -70,6 +70,8 @@ body {
 	</div>
 	<!-- ./ password confirm -->
 
+
+
 @if ($user->has_access("user.view")) 
 
 
