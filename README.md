@@ -7,7 +7,7 @@ Setup
 From your terminal
 ```
 git clone git@github.com:dwsla/slender-cms.git
-cd tv4
+cd slender-cms
 ```
 
 * If needed, download & install virtual box 4.2.x: http://www.virtualbox.org/wiki/Downloads
