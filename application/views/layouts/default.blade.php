@@ -60,14 +60,11 @@
 							<li {{ (URI::is('/') ? 'class="active"' : '') }}><a href="{{ URL::to('') }}">TV4</a></li>
 
 							@if (Auth::check())
-								@if (Auth::user()->has_access("user.view"))
-									<li {{ (URI::is('user') ? 'class="active"' : '') }}><a href="{{ URL::to('user') }}">Users</a></li>
-								@endif
-								@if (Auth::user()->has_access("site.view"))
-									<li {{ (URI::is('site') ? 'class="active"' : '') }}><a href="{{ URL::to('site') }}">Sites</a></li>
-								@endif
-							<li {{ (URI::is('show') ? 'class="active"' : '') }}><a href="{{ URL::to('show') }}">Shows</a></li>
-							<li {{ (URI::is('episode') ? 'class="active"' : '') }}><a href="{{ URL::to('episode') }}">Episodes</a></li>
+								@foreach (Config::get('tv4.modules') as $module => $conf)
+									@if (Auth::user()->has_access("{$module}.view"))
+										<li {{ (URI::is($module) ? 'class="active"' : '') }}><a href="{{ URL::to($module) }}">{{ ucfirst(Str::plural($module)) }}</a></li>
+									@endif
+								@endforeach
 							@endif
 
 						</ul>

@@ -35,8 +35,10 @@
 Route::controller('account');
 Route::controller('home');
 
-Route::controller('user');
-Route::controller('site');
+foreach (Config::get('tv4.modules') as $module => $conf){
+	Route::controller($module);
+}
+// Route::controller('site');
 
 /*
 |--------------------------------------------------------------------------
