@@ -19,6 +19,8 @@ body {
 <div class="page-header">
 	<h1>Pages</h1>
 
+@if($pages)
+
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 	        <tr>
@@ -43,6 +45,16 @@ body {
             @endforeach
         </tbody>
     </table>
+@else
+	<div class="alert">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	  <strong>Warning!</strong> No Pages Found!
+		@if (Auth::user()->has_access("page.edit"))
+			<hr/>
+			<button class="btn btn-success" onclick="document.location='page/edit'" type="button">Create New Page</button>
+		@endif
+	</div>
+@endif
 </div>
 
 
