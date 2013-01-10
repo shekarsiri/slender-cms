@@ -18,7 +18,7 @@ body {
 @section('content')
 <div class="page-header">
 	<h1>Sites</h1>
-
+@if ($sites)
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 	        <tr>
@@ -42,6 +42,17 @@ body {
             @endforeach
         </tbody>
     </table>
+
+@else
+	<div class="alert">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	  <strong>Warning!</strong> No Sites Found!
+		@if (Auth::user()->has_access("site.edit"))
+			<hr/>
+			<button class="btn btn-success" onclick="document.location='site/edit'" type="button">Create New Site</button>
+		@endif
+	</div>
+@endif
 </div>
 
 
