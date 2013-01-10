@@ -49,7 +49,7 @@ class Video_Controller extends Base_Controller
 		//
 		$rules = array(
 			'title' => 'required',
-			// 'meta_title'  => 'required|between:5,1000',
+			'description'  => 'required|between:5,1000',
 			// 'body' => 'required|between:5,2000',
 		);
 
@@ -78,7 +78,8 @@ class Video_Controller extends Base_Controller
 			// 					'keywords' => Input::get('meta_keywords')
 			// 				);
 			// $video->body = Input::get('body');
-			// $video->slug = Input::get('slug') ?:Input::get('title');
+			$video->description = Input::get('description');
+			$video->slug = Input::get('slug') ?:Input::get('title');
 			$video->save();
 
 

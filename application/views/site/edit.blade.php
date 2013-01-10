@@ -35,7 +35,7 @@ body {
 	<div class="control-group {{ $errors->has('description') ? 'error' : '' }}">
 		<label class="control-label" for="description">Description</label>
 		<div class="controls">
-			<textarea name="description" id="description" rows="3">{{  Input::old('description', $site->description) }}</textarea>
+			<textarea name="description" id="description" class="input-xxlarge" rows="3">{{  Input::old('description', $site->description) }}</textarea>
 			{{ $errors->first('description') }}
 		</div>
 	</div>

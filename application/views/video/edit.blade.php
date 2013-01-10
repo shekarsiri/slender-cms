@@ -22,7 +22,7 @@ body {
 <form method="post" action="" class="form-horizontal">
 	<!-- video title -->
 	<div class="control-group {{ $errors->has('title') ? 'error' : '' }}">
-		<label class="control-label" for="title">Video Title</label>
+		<label class="control-label" for="title">Title</label>
 		<div class="controls">
 			<input type="text" name="title" id="title" value="{{  Input::old('title', $video->title) }}" />
 			{{ $errors->first('title') }}
@@ -31,6 +31,26 @@ body {
 	<!-- ./ video title -->
 
 
+	<!-- video Description -->
+	<div class="control-group {{ $errors->has('description') ? 'error' : '' }}">
+		<label class="control-label" for="description">Description</label>
+		<div class="controls">
+			<textarea name="description" id="description" class="input-xxlarge" rows="3">{{  Input::old('description', $video->description) }}</textarea>
+			{{ $errors->first('description') }}
+		</div>
+	</div>
+	<!-- ./ video Description -->
+
+
+	<!-- video slug -->
+	<div class="control-group {{ $errors->has('slug') ? 'error' : '' }}">
+		<label class="control-label" for="title">Slug</label>
+		<div class="controls">
+			<input type="text" name="slug" id="slug" value="{{  Input::old('slug', $video->slug) }}" />
+			{{ $errors->first('slug') }}
+		</div>
+	</div>
+	<!-- ./ video slug -->
 	
 	<!-- Update button -->
 	<div class="control-group">
