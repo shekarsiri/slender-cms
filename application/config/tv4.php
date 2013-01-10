@@ -21,6 +21,7 @@ return array(
 		'video' => array(
 				// title
 				// description
+				// tags
 				// slug (should default to sluggified title, but can be set manually)
 				// premiere date
 				// rating

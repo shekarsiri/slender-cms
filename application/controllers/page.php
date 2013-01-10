@@ -75,7 +75,7 @@ class Page_Controller extends Base_Controller
 			$page->title = Input::get('title');
 			$page->meta  = array( 
 								'title' => Input::get('meta_title'),
-								'keywords' => Input::get('meta_keywords')
+								'keywords' => explode(',', Input::get('meta_keywords'))
 							);
 			$page->body = Input::get('body');
 			$page->slug = Input::get('slug') ?:Input::get('title');

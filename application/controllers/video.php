@@ -80,6 +80,8 @@ class Video_Controller extends Base_Controller
 			// $video->body = Input::get('body');
 			$video->description = Input::get('description');
 			$video->slug = Input::get('slug') ?:Input::get('title');
+			$video->tags = explode(',', Input::get('tags'));
+
 			$video->save();
 
 

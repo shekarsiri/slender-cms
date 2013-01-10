@@ -21,7 +21,8 @@
 		================================================== -->
 		<link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
 		<link href="{{ asset('assets/css/bootstrap-responsive.css') }}" rel="stylesheet">
-
+		@section('css')
+		@yield_section
 		<style>
 		@section('styles')
 			body {
@@ -103,5 +104,7 @@
 		================================================== -->
 		<script src="{{ asset('assets/js/jquery.v1.8.3.min.js') }}"></script>
 		<script src="{{ asset('assets/js/bootstrap-2.2.2/bootstrap.min.js') }}"></script>
+		@section('js')
+		@yield_section
 	</body>
 </html>

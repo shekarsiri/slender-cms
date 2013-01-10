@@ -6,6 +6,28 @@
 :: Video
 @endsection
 
+@section('css')
+	<!-- jQuery tag plugin -->
+	<link href="{{ asset('assets/css/bootstrap-tagmanager.css') }}" rel="stylesheet">
+@endsection
+
+@section('js')
+	<!-- jQuery tag plugin -->
+	<script src="{{ asset('assets/js/bootstrap-tagmanager.js') }}"></script>
+	<script>
+		jQuery(".tagManager").tagsManager();
+		jQuery(".tagManager").tagsManager({
+	        prefilled: [{{ $video->tags ? "'".implode("', '", (array)$video->tags)."'" : '' }}],
+	        preventSubmitOnEnter: true,
+	        typeahead: true,
+	        typeaheadAjaxSource: null,
+	        blinkBGColor_1: '#FFFF9C',
+	        blinkBGColor_2: '#CDE69C',
+	        hiddenTagListName: 'tags'
+	      });
+	</script>
+@endsection
+
 {{-- New Laravel 4 Feature in use --}}
 @section('styles')
 @parent
@@ -44,13 +66,23 @@ body {
 
 	<!-- video slug -->
 	<div class="control-group {{ $errors->has('slug') ? 'error' : '' }}">
-		<label class="control-label" for="title">Slug</label>
+		<label class="control-label" for="slug">Slug</label>
 		<div class="controls">
 			<input type="text" name="slug" id="slug" value="{{  Input::old('slug', $video->slug) }}" />
 			{{ $errors->first('slug') }}
 		</div>
 	</div>
 	<!-- ./ video slug -->
+
+	<!-- video tags -->
+	<div class="control-group {{ $errors->has('tags') ? 'error' : '' }}">
+		<label class="control-label" for="tags">Tags</label>
+		<div class="controls">
+			<input type="text" id="tags" name="_tags" placeholder="Tags" class="tagManager" value="{{  Input::old('tags', $video->tags) }}" />
+			{{ $errors->first('tags') }}
+		</div>
+	</div>
+	<!-- ./ video tags -->
 	
 	<!-- Update button -->
 	<div class="control-group">

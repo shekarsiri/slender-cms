@@ -14,6 +14,28 @@ body {
 }
 @endsection
 
+@section('css')
+	<!-- jQuery tag plugin -->
+	<link href="{{ asset('assets/css/bootstrap-tagmanager.css') }}" rel="stylesheet">
+@endsection
+
+@section('js')
+	<!-- jQuery tag plugin -->
+	<script src="{{ asset('assets/js/bootstrap-tagmanager.js') }}"></script>
+	<script>
+		jQuery(".tagManager").tagsManager();
+		jQuery(".tagManager").tagsManager({
+	        prefilled: [{{ (isset($page->meta['keywords']) && $page->meta['keywords']) ? "'".implode("', '", (array)$page->meta['keywords'])."'" : '' }}],
+	        preventSubmitOnEnter: true,
+	        typeahead: true,
+	        typeaheadAjaxSource: null,
+	        blinkBGColor_1: '#FFFF9C',
+	        blinkBGColor_2: '#CDE69C',
+	        hiddenTagListName: 'meta_keywords'
+	      });
+	</script>
+@endsection
+
 {{-- Content --}}
 @section('content')
 <div class="page-header">
@@ -46,7 +68,7 @@ body {
 	<div class="control-group {{ $errors->has('meta_keywords') ? 'error' : '' }}">
 		<label class="control-label" for="title">Meta Keywords</label>
 		<div class="controls">
-			<input type="text" name="meta_keywords" class="input-xlarge" id="meta_keywords" value="{{  Input::old('meta_keywords',  isset($page->meta['keywords'])?$page->meta['keywords']:'') }}" />
+			<input type="text" name="_meta_keywords"  class="tagManager input-xlarge" id="meta_keywords" value="{{  Input::old('meta_keywords',  isset($page->meta['keywords'])?$page->meta['keywords']:'') }}" />
 			{{ $errors->first('meta_keywords') }}
 		</div>
 	</div>
