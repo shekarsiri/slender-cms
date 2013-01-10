@@ -55,7 +55,8 @@ body {
 	<!-- Update button -->
 	<div class="control-group">
 		<div class="controls">
-			<button type="submit" class="btn">@if ($site->name) Update @else Save @endif</button>
+			<button type="submit" class="btn btn-primary">@if ($site->name) Update @else Save @endif</button>
+			<button type="button" onclick="document.location='/site'" class="btn">Cancel</button>
 		</div>
 	</div>
 	<!-- ./ update button -->

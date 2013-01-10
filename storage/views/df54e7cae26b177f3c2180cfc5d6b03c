@@ -51,7 +51,8 @@ body {
 	<!-- Update button -->
 	<div class="control-group">
 		<div class="controls">
-			<button type="submit" class="btn"><?php if ($site->name): ?> Update <?php else: ?> Save <?php endif; ?></button>
+			<button type="submit" class="btn btn-primary"><?php if ($site->name): ?> Update <?php else: ?> Save <?php endif; ?></button>
+			<button type="button" onclick="document.location='/site'" class="btn">Cancel</button>
 		</div>
 	</div>
 	<!-- ./ update button -->

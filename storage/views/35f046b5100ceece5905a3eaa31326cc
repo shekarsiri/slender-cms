@@ -60,14 +60,11 @@
 							<li <?php echo  (URI::is('/') ? 'class="active"' : '') ; ?>><a href="<?php echo  URL::to('') ; ?>">TV4</a></li>
 
 							<?php if (Auth::check()): ?>
-								<?php if (Auth::user()->has_access("user.view")): ?>
-									<li <?php echo  (URI::is('user') ? 'class="active"' : '') ; ?>><a href="<?php echo  URL::to('user') ; ?>">Users</a></li>
-								<?php endif; ?>
-								<?php if (Auth::user()->has_access("site.view")): ?>
-									<li <?php echo  (URI::is('site') ? 'class="active"' : '') ; ?>><a href="<?php echo  URL::to('site') ; ?>">Sites</a></li>
-								<?php endif; ?>
-							<li <?php echo  (URI::is('show') ? 'class="active"' : '') ; ?>><a href="<?php echo  URL::to('show') ; ?>">Shows</a></li>
-							<li <?php echo  (URI::is('episode') ? 'class="active"' : '') ; ?>><a href="<?php echo  URL::to('episode') ; ?>">Episodes</a></li>
+								<?php foreach (Config::get('tv4.modules') as $module => $conf): ?>
+									<?php if (Auth::user()->has_access("{$module}.view")): ?>
+										<li <?php echo  (URI::is($module) ? 'class="active"' : '') ; ?>><a href="<?php echo  URL::to($module) ; ?>"><?php echo  ucfirst(Str::plural($module)) ; ?></a></li>
+									<?php endif; ?>
+								<?php endforeach; ?>
 							<?php endif; ?>
 
 						</ul>
