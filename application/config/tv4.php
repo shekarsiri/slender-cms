@@ -18,8 +18,25 @@ return array(
 				// created
 				// updated
 			),
-		// 'video' => array(
-		// 	),
+		'video' => array(
+				// title
+				// description
+				// slug (should default to sluggified title, but can be set manually)
+				// premiere date
+				// rating
+				// parent.id
+				// parent.type (show, episode, whatever)
+				// genre
+				// episode_number
+				// season
+				// urls.source
+				// urls.streaming
+				// urls.thumbnail
+				// availability.sunrise
+				// availability.sunset
+				// created
+				// updated
+			),
 
 		),
 );

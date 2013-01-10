@@ -3,7 +3,7 @@
 {{-- Web page Title --}}
 @section('title')
 @parent
-:: pages
+:: Page
 @endsection
 
 {{-- New Laravel 4 Feature in use --}}
