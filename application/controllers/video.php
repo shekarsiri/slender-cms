@@ -82,8 +82,10 @@ class Video_Controller extends Base_Controller
 			$video->slug = Input::get('slug') ?:Input::get('title');
 			$video->tags = explode(',', Input::get('tags'));
 
-			if($premiere_date = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('premiere_date'))->getTimestamp()){
-				$video->premiere_date = new MongoDate($premiere_date);
+			if($premiere_date = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('premiere_date'))){
+				$video->premiere_date = new MongoDate($premiere_date->getTimestamp());
+			}else{
+				$video->premiere_date = '';
 			}
 			$video->save();
 

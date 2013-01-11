@@ -27,6 +27,8 @@ body {
 	          <th>Title</th>
 	          <!-- <th>Url</th> -->
 	          <th>Slug</th>
+	          <th>Premiere Date</th>
+
 			@if (Auth::user()->has_access("video.edit"))
 	          <th style="text-align: center;"><button class="btn btn-mini btn-success" onclick="document.location='video/edit'" type="button">New</button></th>
 			@endif
@@ -38,6 +40,8 @@ body {
                   <td>{{ $video->title }}</td>
                   <!-- <td>{{ $video->url }}</td> -->
                   <td>{{ $video->slug }}</td>
+                  <td>{{ $video->premiere_date ? date("m/d/Y H:i:s",$video->premiere_date->sec) : '' }}</td>
+                  
                   @if (Auth::user()->has_access("video.edit"))
                   	<td style="text-align: center;"><button class="btn btn-mini btn-primary" onclick="document.location='video/edit/{{ $id }}'" type="button">edit</button></td>
                   @endif

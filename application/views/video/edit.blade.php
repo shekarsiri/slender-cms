@@ -92,7 +92,7 @@ body {
 	<!-- ./ video tags -->
 	<!-- video premiere date -->
 	<div class="control-group {{ $errors->has('premiere_date') ? 'error' : '' }}">
-		<label class="control-label" for="slug">Premiere Date</label>
+		<label class="control-label" for="premiere_date">Premiere Date</label>
 		<div class="controls">
 			<div id="datetimepicker1" class="input-append date">
 				<input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="premiere_date" id="premiere_date" value="{{  Input::old('premiere_date', $video->premiere_date ? date("m/d/Y H:i:s",$video->premiere_date->sec) : '') }}" />
