@@ -9,22 +9,29 @@
 @section('css')
 	<!-- jQuery tag plugin -->
 	<link href="{{ asset('assets/css/bootstrap-tagmanager.css') }}" rel="stylesheet">
+	<!-- jQuery datetime plugin -->
+	<link href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('js')
 	<!-- jQuery tag plugin -->
 	<script src="{{ asset('assets/js/bootstrap-tagmanager.js') }}"></script>
+
+	<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
 	<script>
-		jQuery(".tagManager").tagsManager();
-		jQuery(".tagManager").tagsManager({
-	        prefilled: [{{ $video->tags ? "'".implode("', '", (array)$video->tags)."'" : '' }}],
-	        preventSubmitOnEnter: true,
-	        typeahead: true,
-	        typeaheadAjaxSource: null,
-	        blinkBGColor_1: '#FFFF9C',
-	        blinkBGColor_2: '#CDE69C',
-	        hiddenTagListName: 'tags'
-	      });
+		$(function(){
+			
+			jQuery(".tagManager").tagsManager({
+		        prefilled: [{{ $video->tags ? "'".implode("', '", (array)$video->tags)."'" : '' }}],
+		        preventSubmitOnEnter: true,
+		        typeahead: true,
+		        typeaheadAjaxSource: null,
+		        blinkBGColor_1: '#FFFF9C',
+		        blinkBGColor_2: '#CDE69C',
+		        hiddenTagListName: 'tags'
+		      });
+			$('#datetimepicker1').datetimepicker();
+		});	
 	</script>
 @endsection
 
@@ -83,7 +90,21 @@ body {
 		</div>
 	</div>
 	<!-- ./ video tags -->
-	
+	<!-- video premiere date -->
+	<div class="control-group {{ $errors->has('premiere_date') ? 'error' : '' }}">
+		<label class="control-label" for="slug">Premiere Date</label>
+		<div class="controls">
+			<div id="datetimepicker1" class="input-append date">
+				<input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="premiere_date" id="premiere_date" value="{{  Input::old('premiere_date', $video->premiere_date ? date("m/d/Y H:i:s",$video->premiere_date->sec) : '') }}" />
+				<span class="add-on"><i class="icon-envelope"></i></span>
+
+			</div>
+			{{ $errors->first('premiere_date') }}
+		</div>
+	</div>
+	<!-- ./ video premiere date -->	
+
+
 	<!-- Update button -->
 	<div class="control-group">
 		<div class="controls">
