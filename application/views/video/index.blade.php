@@ -25,8 +25,8 @@ body {
 		<thead>
 	        <tr>
 	          <th>Title</th>
-	          <!-- <th>Url</th> -->
 	          <th>Slug</th>
+	          <th>Genre</th>
 	          <th>Premiere Date</th>
 
 			@if (Auth::user()->has_access("video.edit"))
@@ -38,8 +38,8 @@ body {
         	@foreach ($videos as $id => $video)
                 <tr>
                   <td>{{ $video->title }}</td>
-                  <!-- <td>{{ $video->url }}</td> -->
                   <td>{{ $video->slug }}</td>
+                  <td>{{ $video->genre }}</td>
                   <td>{{ $video->premiere_date ? date("m/d/Y H:i:s",$video->premiere_date->sec) : '' }}</td>
                   
                   @if (Auth::user()->has_access("video.edit"))

@@ -73,11 +73,7 @@ class Video_Controller extends Base_Controller
 				$video =  Video::find($id);
 			}
 			$video->title = Input::get('title');
-			// $video->meta  = array( 
-			// 					'title' => Input::get('meta_title'),
-			// 					'keywords' => Input::get('meta_keywords')
-			// 				);
-			// $video->body = Input::get('body');
+
 			$video->description = Input::get('description');
 			$video->slug = Str::slug(Input::get('slug') ?:Input::get('title'));
 			$video->tags = explode(',', Input::get('tags'));
@@ -87,6 +83,22 @@ class Video_Controller extends Base_Controller
 			}else{
 				$video->premiere_date = '';
 			}
+
+			$video->genre = Input::get('genre');
+
+			$video->urls = array( 
+				'source' => Input::get('urls_source'),
+				'streaming' => Input::get('urls_streaming'),
+				'thumbnail' => Input::get('urls_thumbnail')
+			);
+
+			$availability_sunrise = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('availability_sunrise'));
+			$availability_sunset = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('availability_sunset'));
+
+			$video->availability = array(
+				'sunrise' => $availability_sunrise ? new MongoDate($availability_sunrise->getTimestamp()) : '',
+				'sunset' =>  $availability_sunset ? new MongoDate($availability_sunset->getTimestamp()) : '',
+			);
 
 			$video->dateify() // set updated and created fields
 					->save();

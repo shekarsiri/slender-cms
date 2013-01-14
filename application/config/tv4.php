@@ -19,24 +19,71 @@ return array(
 				// updated
 			),
 		'video' => array(
+			'genre_list' => array(
+				"Action",
+				"Action/Adventure",
+				"Adult",
+				"Adventure",
+				"Catastrophe",
+				"Child's",
+				"Claymation",
+				"Comedy",
+				"Concert",
+				"Documentary",
+				"Drama",
+				"Eastern",
+				"Entertaining",
+				"Erotic",
+				"Extremal Sport",
+				"Fantasy",
+				"Fashion",
+				"Historical",
+				"Horror",
+				"Horror/Mystic",
+				"Humor",
+				"Indian",
+				"Informercial",
+				"Melodrama",
+				"Military & War",
+				"Music Video",
+				"Musical",
+				"Mystery",
+				"Nature",
+				"Political Satire",
+				"Popular Science",
+				"Psychological Thriller",
+				"Religion",
+				"Science Fiction",
+				"Scifi Action",
+				"Slapstick",
+				"Splatter",
+				"Sports",
+				"Thriller",
+				"Western"
+			),
+
 				// title
 				// description
-				// tags
 				// slug (should default to sluggified title, but can be set manually) replacement function from fapi - https://github.com/startupdevs/fox-fapi/blob/master/app/src/fox/Fox/Fapi/Util/String.php
 				// premiere date
+
+				// @TODO: implement this! why array()??
 				// rating 			(?)  array('sdf','asd')
+				
 				// parent.id
 				// parent.type (show, episode, whatever)	(with parent.id pop-up a window with drop-down and a list with ability to choose the parent)
 				// genre 			(?) text fields with auto complete  from predefined array
-				// episode_number	(?) num - !!! remove
-				// season 			(?) num - !!! remove
 				// urls.source 		(?) str
 				// urls.streaming 	(?) str
 				// urls.thumbnail   (?) str
+			
 				// availability.sunrise (?) date picker 
 				// availability.sunset
 				// created
 				// updated
+				
+				// episode_number	(?) num - !!! remove
+				// season 			(?) num - !!! remove
 			),
 
 		),

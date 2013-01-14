@@ -1,7 +1,5 @@
 <?php
 
-// use Enjoyit\Mongo\Model;
-
 class User extends BaseModel {
 
 	public static $collection = 'user';

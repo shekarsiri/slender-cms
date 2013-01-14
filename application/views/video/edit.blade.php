@@ -31,6 +31,17 @@
 		        hiddenTagListName: 'tags'
 		      });
 			$('#datetimepicker1').datetimepicker();
+		    $('#datetimepicker2').datetimepicker();
+			$('#datetimepicker3').datetimepicker();
+
+
+			$('.typeahead').typeahead({
+				source: [
+					@foreach (Config::get('tv4.modules.video.genre_list') as $genre) 
+						"{{ $genre }}",
+					@endforeach
+				]
+			});
 		});	
 	</script>
 @endsection
@@ -90,6 +101,7 @@ body {
 		</div>
 	</div>
 	<!-- ./ video tags -->
+
 	<!-- video premiere date -->
 	<div class="control-group {{ $errors->has('premiere_date') ? 'error' : '' }}">
 		<label class="control-label" for="premiere_date">Premiere Date</label>
@@ -104,6 +116,77 @@ body {
 	</div>
 	<!-- ./ video premiere date -->	
 
+	<!-- video genre -->
+	<div class="control-group {{ $errors->has('genre') ? 'error' : '' }}">
+		<label class="control-label" for="genre">Genre</label>
+		<div class="controls">
+			<input type="text" name="genre" id="genre" autocomplete="off" class="typeahead" value="{{  Input::old('genre', $video->genre) }}" />
+			{{ $errors->first('genre') }}
+		</div>
+	</div>
+	<!-- ./ video genre -->
+
+
+	<!-- urls.source -->
+	<div class="control-group {{ $errors->has('urls_source') ? 'error' : '' }}">
+		<label class="control-label" for="urls_source">URLs Source</label>
+		<div class="controls">
+			<input type="text" name="urls_source" id="urls_source" value="{{  Input::old('urls_source', isset($video->urls['source']) && $video->urls['source'] ? $video->urls['source'] : '') }}" />
+
+			{{ $errors->first('urls_source') }}
+		</div>
+	</div>
+	<!-- ./ urls.source -->
+
+	<!-- urls.streaming -->
+	<div class="control-group {{ $errors->has('urls_streaming') ? 'error' : '' }}">
+		<label class="control-label" for="urls_streaming">URLs Streaming</label>
+		<div class="controls">
+			<input type="text" name="urls_streaming" id="urls_streaming" value="{{  Input::old('urls_streaming', isset($video->urls['streaming']) && $video->urls['streaming'] ? $video->urls['streaming'] : '') }}" />
+
+			{{ $errors->first('urls_streaming') }}
+		</div>
+	</div>
+	<!-- ./ urls.streaming -->
+
+	<!-- urls.thumbnail -->
+	<div class="control-group {{ $errors->has('urls_thumbnail') ? 'error' : '' }}">
+		<label class="control-label" for="urls_thumbnail">URLs Thumbnail</label>
+		<div class="controls">
+			<input type="text" name="urls_thumbnail" id="urls_thumbnail" value="{{  Input::old('urls_thumbnail', isset($video->urls['thumbnail']) && $video->urls['thumbnail'] ? $video->urls['thumbnail'] : '') }}" />
+
+			{{ $errors->first('urls_thumbnail') }}
+		</div>
+	</div>
+	<!-- ./ urls.thumbnail -->	
+
+	<!-- availability.sunrise -->
+	<div class="control-group {{ $errors->has('availability_sunrise') ? 'error' : '' }}">
+		<label class="control-label" for="availability_sunrise">Sunrise</label>
+		<div class="controls">
+			<div id="datetimepicker3" class="input-append date">
+				<input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="availability_sunrise" id="availability_sunrise" value="{{  Input::old('availability_sunrise', isset($video->availability['sunrise']) && $video->availability['sunrise'] ? date("m/d/Y H:i:s", $video->availability['sunrise']->sec) : '') }}" />
+				<span class="add-on"><i class="icon-envelope"></i></span>
+
+			</div>
+			{{ $errors->first('availability_sunrise') }}
+		</div>
+	</div>
+	<!-- ./ availability.sunrise -->		
+
+	<!-- availability.sunset -->
+	<div class="control-group {{ $errors->has('availability_sunset') ? 'error' : '' }}">
+		<label class="control-label" for="availability_sunset">Sunset</label>
+		<div class="controls">
+			<div id="datetimepicker2" class="input-append date">
+				<input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="availability_sunset" id="availability_sunset" value="{{  Input::old('availability_sunset', isset($video->availability['sunset']) && $video->availability['sunset'] ? date("m/d/Y H:i:s", $video->availability['sunset']->sec) : '') }}" />
+				<span class="add-on"><i class="icon-envelope"></i></span>
+
+			</div>
+			{{ $errors->first('availability_sunset') }}
+		</div>
+	</div>
+	<!-- ./ availability.sunset -->
 
 	<!-- Update button -->
 	<div class="control-group">
