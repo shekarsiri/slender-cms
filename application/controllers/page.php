@@ -78,7 +78,7 @@ class Page_Controller extends Base_Controller
 								'keywords' => explode(',', Input::get('meta_keywords'))
 							);
 			$page->body = Input::get('body');
-			$page->slug = Input::get('slug') ?:Input::get('title');
+			$page->slug = Str::slug(Input::get('slug') ?:Input::get('title'));
 
 
 			$availability_sunrise = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('availability_sunrise'));

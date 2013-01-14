@@ -79,7 +79,7 @@ class Video_Controller extends Base_Controller
 			// 				);
 			// $video->body = Input::get('body');
 			$video->description = Input::get('description');
-			$video->slug = Input::get('slug') ?:Input::get('title');
+			$video->slug = Str::slug(Input::get('slug') ?:Input::get('title'));
 			$video->tags = explode(',', Input::get('tags'));
 
 			if($premiere_date = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('premiere_date'))){
