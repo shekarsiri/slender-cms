@@ -80,18 +80,16 @@ class Page_Controller extends Base_Controller
 			$page->body = Input::get('body');
 			$page->slug = Str::slug(Input::get('slug') ?:Input::get('title'));
 
-
 			$availability_sunrise = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('availability_sunrise'));
 			$availability_sunset = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('availability_sunset'));
-
 
 			$page->availability = array(
 				'sunrise' => $availability_sunrise ? new MongoDate($availability_sunrise->getTimestamp()) : '',
 				'sunset' =>  $availability_sunset ? new MongoDate($availability_sunset->getTimestamp()) : '',
 			);
 
-			$page->save();
-
+			$page->dateify()  // set updated and created fields
+					->save();
 
 			// Redirect to the register page.
 			//

@@ -16,13 +16,13 @@ class BaseModel extends Mongor\Model {
 		return self::where(array('_id'=> $id))->first();
 	}
 
-	public function save(){
+	public function dateify(){
 		if(!($this->_id instanceof MongoId)){
 			$this->created = new MongoDate(time());
 		}
 		$this->updated = new MongoDate(time());
 		
-		return parent::_save();	
+		return $this;	
 	}
 
 } 

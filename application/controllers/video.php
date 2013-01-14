@@ -88,7 +88,8 @@ class Video_Controller extends Base_Controller
 				$video->premiere_date = '';
 			}
 
-			$video->save();
+			$video->dateify() // set updated and created fields
+					->save();
 
 
 			// Redirect to the video page.

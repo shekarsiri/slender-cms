@@ -2,7 +2,7 @@
 
 // use Enjoyit\Mongo\Model;
 
-class User extends Mongor\Model {
+class User extends BaseModel {
 
 	public static $collection = 'user';
 
@@ -16,16 +16,6 @@ class User extends Mongor\Model {
     	
     	return (isset($this->access[$module][$access]) && $this->access[$module][$access]) ? true : false;
     }
-
-
-	public static function find($id){
-
-		if(!$id instanceof MongoId){
-			$id = new MongoId($id);
-		}
-
-		return self::where(array('_id'=> $id))->first();
-	}
 
 	/**
 	 * Get the user full name.
