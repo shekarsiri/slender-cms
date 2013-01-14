@@ -87,6 +87,7 @@ class Video_Controller extends Base_Controller
 			}else{
 				$video->premiere_date = '';
 			}
+
 			$video->save();
 
 

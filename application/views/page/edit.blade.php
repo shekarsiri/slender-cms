@@ -17,23 +17,29 @@ body {
 @section('css')
 	<!-- jQuery tag plugin -->
 	<link href="{{ asset('assets/css/bootstrap-tagmanager.css') }}" rel="stylesheet">
+	<!-- jQuery datetime plugin -->
+	<link href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('js')
 	<!-- jQuery tag plugin -->
 	<script src="{{ asset('assets/js/bootstrap-tagmanager.js') }}"></script>
 	<script>
-		jQuery(".tagManager").tagsManager();
-		jQuery(".tagManager").tagsManager({
-	        prefilled: [{{ (isset($page->meta['keywords']) && $page->meta['keywords']) ? "'".implode("', '", (array)$page->meta['keywords'])."'" : '' }}],
-	        preventSubmitOnEnter: true,
-	        typeahead: true,
-	        typeaheadAjaxSource: null,
-	        blinkBGColor_1: '#FFFF9C',
-	        blinkBGColor_2: '#CDE69C',
-	        hiddenTagListName: 'meta_keywords'
-	      });
+		$(function(){
+			jQuery(".tagManager").tagsManager({
+		        prefilled: [{{ (isset($page->meta['keywords']) && $page->meta['keywords']) ? "'".implode("', '", (array)$page->meta['keywords'])."'" : '' }}],
+		        preventSubmitOnEnter: true,
+		        typeahead: true,
+		        typeaheadAjaxSource: null,
+		        blinkBGColor_1: '#FFFF9C',
+		        blinkBGColor_2: '#CDE69C',
+		        hiddenTagListName: 'meta_keywords'
+		      });
+		      $('#datetimepicker1').datetimepicker();
+		      $('#datetimepicker2').datetimepicker();
+		});
 	</script>
+	<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
 @endsection
 
 {{-- Content --}}
@@ -95,9 +101,35 @@ body {
 	</div>
 	<!-- ./ page slug -->
 
+	<!-- availability.sunrise -->
+	<div class="control-group {{ $errors->has('availability_sunrise') ? 'error' : '' }}">
+		<label class="control-label" for="availability_sunrise">Sunrise</label>
+		<div class="controls">
+			<div id="datetimepicker1" class="input-append date">
+				<input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="availability_sunrise" id="availability_sunrise" value="{{  Input::old('availability_sunrise', isset($page->availability['sunrise']) && $page->availability['sunrise'] ? date("m/d/Y H:i:s", $page->availability['sunrise']->sec) : '') }}" />
+				<span class="add-on"><i class="icon-envelope"></i></span>
 
+			</div>
+			{{ $errors->first('availability_sunrise') }}
+		</div>
+	</div>
+	<!-- ./ availability.sunrise -->		
+
+	<!-- availability.sunset -->
+	<div class="control-group {{ $errors->has('availability_sunset') ? 'error' : '' }}">
+		<label class="control-label" for="availability_sunset">Sunset</label>
+		<div class="controls">
+			<div id="datetimepicker2" class="input-append date">
+				<input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="availability_sunset" id="availability_sunset" value="{{  Input::old('availability_sunset', isset($page->availability['sunset']) && $page->availability['sunset'] ? date("m/d/Y H:i:s", $page->availability['sunset']->sec) : '') }}" />
+				<span class="add-on"><i class="icon-envelope"></i></span>
+
+			</div>
+			{{ $errors->first('availability_sunset') }}
+		</div>
+	</div>
+	<!-- ./ availability.sunset -->
 	
-	<!-- Update button -->
+	<!-- update button -->
 	<div class="control-group">
 		<div class="controls">
 			<button type="submit" class="btn btn-primary">@if ($page->name) Update @else Save @endif</button>
