@@ -3,7 +3,7 @@
 {{-- Web page Title --}}
 @section('title')
 @parent
-:: Video
+:: Channel
 @endsection
 
 @section('css')
@@ -103,7 +103,7 @@ body {
 {{-- Content --}}
 @section('content')
 <div class="page-header">
-	<h1>@if ($video->title) Video Settings @else New Video @endif</h1>
+	<h1>@if ($video->title) Channel Settings @else New Channel @endif</h1>
 </div>
 <form method="post" action="" class="form-horizontal">
 	<!-- video title -->

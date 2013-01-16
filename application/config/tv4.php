@@ -19,48 +19,6 @@ return array(
 				// updated
 			),
 		'video' => array(
-			'genre_list' => array(
-				"Action",
-				"Action/Adventure",
-				"Adult",
-				"Adventure",
-				"Catastrophe",
-				"Child's",
-				"Claymation",
-				"Comedy",
-				"Concert",
-				"Documentary",
-				"Drama",
-				"Eastern",
-				"Entertaining",
-				"Erotic",
-				"Extremal Sport",
-				"Fantasy",
-				"Fashion",
-				"Historical",
-				"Horror",
-				"Horror/Mystic",
-				"Humor",
-				"Indian",
-				"Informercial",
-				"Melodrama",
-				"Military & War",
-				"Music Video",
-				"Musical",
-				"Mystery",
-				"Nature",
-				"Political Satire",
-				"Popular Science",
-				"Psychological Thriller",
-				"Religion",
-				"Science Fiction",
-				"Scifi Action",
-				"Slapstick",
-				"Splatter",
-				"Sports",
-				"Thriller",
-				"Western"
-			),
 
 				// title
 				// description
@@ -84,7 +42,74 @@ return array(
 				
 				// episode_number	(?) num - !!! remove
 				// season 			(?) num - !!! remove
-			),
 
 		),
+		'channel' => array(
+			// - id
+			// - title
+			// - slug
+			// - description
+			// - tags
+			// - genre
+			// - start_date
+			// - end_date
+			// - updated
+			// - created
+
+
+			// Relations:
+			// parents: none
+			// children: episodes, videos, shows
+
+			// front end:
+			// - slug autogenerate from from title but allow override
+			// - taggable
+			// - parentable
+			// - genre auto complete
+
+		),
+		
+	),
+	'genre_list' => array(
+		"Action",
+		"Action/Adventure",
+		"Adult",
+		"Adventure",
+		"Catastrophe",
+		"Child's",
+		"Claymation",
+		"Comedy",
+		"Concert",
+		"Documentary",
+		"Drama",
+		"Eastern",
+		"Entertaining",
+		"Erotic",
+		"Extremal Sport",
+		"Fantasy",
+		"Fashion",
+		"Historical",
+		"Horror",
+		"Horror/Mystic",
+		"Humor",
+		"Indian",
+		"Informercial",
+		"Melodrama",
+		"Military & War",
+		"Music Video",
+		"Musical",
+		"Mystery",
+		"Nature",
+		"Political Satire",
+		"Popular Science",
+		"Psychological Thriller",
+		"Religion",
+		"Science Fiction",
+		"Scifi Action",
+		"Slapstick",
+		"Splatter",
+		"Sports",
+		"Thriller",
+		"Western"
+	),
 );
