@@ -68,7 +68,32 @@ return array(
 			// - genre auto complete
 
 		),
-		
+		'show' => array(
+			// + id
+			// + title
+			// + slug
+			// + description
+			// + tags
+			// + genre
+			// parent.id
+			// parent.type (show, episode, whatever)	(with parent.id pop-up a window with drop-down and a list with ability to choose the parent)
+			// + start_date
+			// + end_date
+			// + updated
+			// + created
+
+
+			// Relations:
+			// parents: none
+			// children: episodes, videos, shows
+
+			// front end:
+			// - slug autogenerate from from title but allow override
+			// - taggable
+			// - parentable
+			// - genre auto complete
+
+		),
 	),
 	'genre_list' => array(
 		"Action",
