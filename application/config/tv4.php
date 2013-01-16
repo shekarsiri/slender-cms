@@ -45,16 +45,16 @@ return array(
 
 		),
 		'channel' => array(
-			// - id
-			// - title
-			// - slug
-			// - description
-			// - tags
-			// - genre
-			// - start_date
-			// - end_date
-			// - updated
-			// - created
+			// + id
+			// + title
+			// + slug
+			// + description
+			// + tags
+			// + genre
+			// + start_date
+			// + end_date
+			// + updated
+			// + created
 
 
 			// Relations:

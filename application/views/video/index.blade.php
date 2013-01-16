@@ -17,7 +17,7 @@ body {
 {{-- Content --}}
 @section('content')
 <div class="page-header">
-	<h1>Video</h1>
+	<h1>Videos</h1>
 
 @if($videos)
 

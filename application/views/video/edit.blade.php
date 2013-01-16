@@ -154,7 +154,7 @@ body {
 		<div class="controls">
 			<div id="datetimepicker1" class="input-append date">
 				<input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="premiere_date" id="premiere_date" value="{{  Input::old('premiere_date', $video->premiere_date ? date("m/d/Y H:i:s",$video->premiere_date->sec) : '') }}" />
-				<span class="add-on"><i class="icon-envelope"></i></span>
+				<span class="add-on"><i class="icon-calendar"></i></span>
 
 			</div>
 			{{ $errors->first('premiere_date') }}
@@ -280,7 +280,7 @@ body {
 		<div class="controls">
 			<div id="datetimepicker3" class="input-append date">
 				<input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="availability_sunrise" id="availability_sunrise" value="{{  Input::old('availability_sunrise', isset($video->availability['sunrise']) && $video->availability['sunrise'] ? date("m/d/Y H:i:s", $video->availability['sunrise']->sec) : '') }}" />
-				<span class="add-on"><i class="icon-envelope"></i></span>
+				<span class="add-on"><i class="icon-calendar"></i></span>
 
 			</div>
 			{{ $errors->first('availability_sunrise') }}
@@ -294,7 +294,7 @@ body {
 		<div class="controls">
 			<div id="datetimepicker2" class="input-append date">
 				<input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="availability_sunset" id="availability_sunset" value="{{  Input::old('availability_sunset', isset($video->availability['sunset']) && $video->availability['sunset'] ? date("m/d/Y H:i:s", $video->availability['sunset']->sec) : '') }}" />
-				<span class="add-on"><i class="icon-envelope"></i></span>
+				<span class="add-on"><i class="icon-calendar"></i></span>
 
 			</div>
 			{{ $errors->first('availability_sunset') }}

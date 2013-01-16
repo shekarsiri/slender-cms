@@ -5,7 +5,7 @@ class Api_Controller extends Controller {
 	public $restful = true;
 
 	//TODO: remove this shit code
-
+	// API Emulation 
 	/**
 	 *
 	 * @param  string    $method

@@ -1,5 +1,4 @@
 <?php
-// TODO: change to channel
 class Channel_Controller extends Base_Controller
 {
 	public $restful = true;
@@ -15,12 +14,12 @@ class Channel_Controller extends Base_Controller
 		if(!Auth::user()->has_access("channel.view")){
 			return Response::error('401');
 		}
-		return View::make('channel/index')->with('videos', Channel::all());
+		return View::make('channel/index')->with('channels', Channel::all());
 	}
 
 
 	/**
-	 * New videos page.
+	 * New channels page.
 	 *
 	 * @access   public
 	 * @return   View
@@ -30,10 +29,10 @@ class Channel_Controller extends Base_Controller
 		if(!Auth::user()->has_access("channel.edit")){
 			return Response::error('401');
 		}
-		$video = Channel::find($id);
-		$parent = $video->getParent();
+		$channel = Channel::find($id);
+		$parent = $channel->getParent();
 		return View::make('channel/edit')
-						->with('video', $video)
+						->with('channel', $channel)
 						->with('parent', $parent);
 	}
 
@@ -72,50 +71,32 @@ class Channel_Controller extends Base_Controller
 			// Create the site
 			//
 			if(is_null($id)){
-				$video = new Channel;
+				$channel = new Channel;
 			}else{
-				$video =  Channel::find($id);
+				$channel =  Channel::find($id);
 			}
-			$video->title = Input::get('title');
+			$channel->title = Input::get('title');
 
-			$video->description = Input::get('description');
-			$video->slug = Str::slug(Input::get('slug') ?:Input::get('title'));
-			$video->tags = explode(',', Input::get('tags'));
+			$channel->description = Input::get('description');
+			$channel->slug = Str::slug(Input::get('slug') ?:Input::get('title'));
+			$channel->tags = explode(',', Input::get('tags'));
 
-			if($premiere_date = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('premiere_date'))){
-				$video->premiere_date = new MongoDate($premiere_date->getTimestamp());
-			}else{
-				$video->premiere_date = '';
-			}
 
-			$video->genre = Input::get('genre');
+			$channel->genre = Input::get('genre');
 
-			$video->urls = array( 
-				'source' => Input::get('urls_source'),
-				'streaming' => Input::get('urls_streaming'),
-				'thumbnail' => Input::get('urls_thumbnail')
-			);
+			$start_date = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('start_date'));
+			$end_date = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('end_date'));
 
-			$availability_sunrise = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('availability_sunrise'));
-			$availability_sunset = DateTime::createFromFormat('m/d/Y H:i:s', Input::get('availability_sunset'));
+			$channel->start_date = $start_date ? new MongoDate($start_date->getTimestamp()) : '';
+			$channel->end_date = $end_date ? new MongoDate($end_date->getTimestamp()) : '';
 
-			$video->availability = array(
-				'sunrise' => $availability_sunrise ? new MongoDate($availability_sunrise->getTimestamp()) : '',
-				'sunset' =>  $availability_sunset ? new MongoDate($availability_sunset->getTimestamp()) : '',
-			);
-
-			$video->parent = array(
-				'id' => Input::get('parent_id'),
-				'type' =>  Input::get('parent_type'),
-			);
-
-			$video->dateify() // set updated and created fields
+			$channel->dateify() // set updated and created fields
 					->save();
 
 
-			// Redirect to the video page.
+			// Redirect to the channel page.
 			//
-			return Redirect::to('channel')->with('success', 'Video updated with success!');
+			return Redirect::to('channel')->with('success', 'Channel updated with success!');
 		}
 
 		// Something went wrong.

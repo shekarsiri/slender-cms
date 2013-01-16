@@ -17,9 +17,9 @@ body {
 {{-- Content --}}
 @section('content')
 <div class="page-header">
-	<h1>Channel</h1>
+	<h1>Channels</h1>
 
-@if($videos)
+@if($channels)
 
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
@@ -27,22 +27,20 @@ body {
 	          <th>Title</th>
 	          <th>Slug</th>
 	          <th>Genre</th>
-	          <th>Premiere Date</th>
 
-			@if (Auth::user()->has_access("video.edit"))
-	          <th style="text-align: center;"><button class="btn btn-mini btn-success" onclick="document.location='video/edit'" type="button">New</button></th>
+			@if (Auth::user()->has_access("channel.edit"))
+	          <th style="text-align: center;"><button class="btn btn-mini btn-success" onclick="document.location='channel/edit'" type="button">New</button></th>
 			@endif
 	        </tr>
 	      </thead>
          <tbody>
-        	@foreach ($videos as $id => $video)
+        	@foreach ($channels as $id => $channel)
                 <tr>
-                  <td>{{ $video->title }}</td>
-                  <td>{{ $video->slug }}</td>
-                  <td>{{ $video->genre }}</td>
-                  <td>{{ $video->premiere_date ? date("m/d/Y H:i:s",$video->premiere_date->sec) : '' }}</td>
+                  <td>{{ $channel->title }}</td>
+                  <td>{{ $channel->slug }}</td>
+                  <td>{{ $channel->genre }}</td>
                   
-                  @if (Auth::user()->has_access("video.edit"))
+                  @if (Auth::user()->has_access("channel.edit"))
                   	<td style="text-align: center;"><button class="btn btn-mini btn-primary" onclick="document.location='channel/edit/{{ $id }}'" type="button">edit</button></td>
                   @endif
                 </tr>
@@ -53,7 +51,7 @@ body {
 	<div class="alert">
 	  <button type="button" class="close" data-dismiss="alert">&times;</button>
 	  <strong>Warning!</strong> No Channels Found!
-		@if (Auth::user()->has_access("video.edit"))
+		@if (Auth::user()->has_access("channel.edit"))
 			<hr/>
 			<button class="btn btn-success" onclick="document.location='channel/edit'" type="button">Create New Channel</button>
 		@endif
