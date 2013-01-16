@@ -30,7 +30,11 @@ class Video_Controller extends Base_Controller
 		if(!Auth::user()->has_access("video.edit")){
 			return Response::error('401');
 		}
-		return View::make('video/edit')->with('video', Video::find($id));
+		$video = Video::find($id);
+		$parent = $video->getParent();
+		return View::make('video/edit')
+						->with('video', $video)
+						->with('parent', $parent);
 	}
 
 
@@ -98,6 +102,11 @@ class Video_Controller extends Base_Controller
 			$video->availability = array(
 				'sunrise' => $availability_sunrise ? new MongoDate($availability_sunrise->getTimestamp()) : '',
 				'sunset' =>  $availability_sunset ? new MongoDate($availability_sunset->getTimestamp()) : '',
+			);
+
+			$video->parent = array(
+				'id' => Input::get('parent_id'),
+				'type' =>  Input::get('parent_type'),
 			);
 
 			$video->dateify() // set updated and created fields

@@ -34,6 +34,7 @@
 
 Route::controller('account');
 Route::controller('home');
+Route::controller('api');
 
 foreach (Config::get('tv4.modules') as $module => $conf){
 	Route::controller($module);

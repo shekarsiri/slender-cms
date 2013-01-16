@@ -42,6 +42,49 @@
 					@endforeach
 				]
 			});
+
+			$('#parent_type').on('change', function(){
+				$('#parent_error').hide();
+				$("input[name='"+ $(this).attr('id') +"']").val($(this).val());
+
+				$.ajax({
+				  type: "GET",
+				  url: "/api/" + $(this).val(),
+				  data: {action: 'all'},
+				  dataType: "json"
+				}).done(function(res) {
+					var name = $('#parent_type').val().toLowerCase();
+					$.each(res[name], function(index, value) {
+						$('#parent_id').append($("<option></option>")
+								         .attr("value",value.id)
+								         .text(value.title)); 
+					});
+				});
+			});
+
+			$('#parent_id').on('change', function(){
+				$('#parent_error').hide();
+				$("input[name='"+ $(this).attr('id') +"']").val($(this).val());
+				$('#parent_value').html($("input[name='parent_type']").val() + ": " + $("#parent_id option:selected").text() );
+				$("#parent_remove").show();
+			});
+
+			$("#select_parent").on('click', function(){
+				if(!$('#parent_id').val() || !$('#parent_type').val()){
+					$('#parent_error').show();
+					return false;
+				}
+				$('#myModal').modal('hide');
+				return false;
+			});
+
+			$("#parent_remove").on('click', function(){
+				$("input[name='parent_id']").val('');
+				$("input[name='parent_type']").val('');
+				$('#parent_value').html('');
+				$(this).hide();
+				return false;
+			});
 		});	
 	</script>
 @endsection
@@ -115,6 +158,74 @@ body {
 		</div>
 	</div>
 	<!-- ./ video premiere date -->	
+
+
+
+	<!-- video parent -->
+	<div class="control-group {{ $errors->has('parent') ? 'error' : '' }}">
+		<label class="control-label" for="tags">Parent</label>
+		<div class="controls">
+			<input type="hidden" name="parent_id" value="{{  Input::old('taparent_idgs', isset($video->parent['id']) ? $video->parent['id'] : '' ) }}" />
+			<input type="hidden" name="parent_type" value="{{  Input::old('parent_type', isset($video->parent['type']) ? $video->parent['type'] : '') }}" />
+				<span id='parent_value'>
+					@if ($parent) 
+						{{ $video->parent['type']}}: {{ $parent->title }} 
+					@endif
+				</span>
+			<a href="#" id="parent_remove" class="btn btn-danger btn-small @if (!$parent) hide@endif"><i class='icon-remove-sign'></i> Remove</a>
+			<!-- Button to trigger modal -->
+			<a href="#myModal" role="button" class="btn btn-info btn-small" data-toggle="modal"><i class='icon-magnet'></i> Assign</a>
+
+
+			<!-- Modal -->
+			<div id="myModal" class="modal hide fade" style="heigth:200px" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			    <h3 id="myModalLabel">Parent for video</h3>
+			  </div>
+			  <div class="modal-body" style="height: 160px;">
+
+			  	<div class="control-group">
+					<label class="control-label" for="tags">Type:</label>
+					<div class="controls">
+					    <select id='parent_type'>
+					    		<option  selected="selected"  disabled="disabled">Select Type</option>
+					    	@foreach ($video->getParents() as $parent)
+						  		<option>{{ $parent }}</option>
+						  	@endforeach
+						</select>
+					
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="tags">Parent:</label>
+					<div class="controls">
+					    <select id='parent_id'>
+					    		<option  selected="selected"  disabled="disabled">Select</option>
+						</select>
+						
+					</div>
+				</div>
+				<div class="alert alert-error hide" id='parent_error'>
+				  Please select Type and Parent!
+				</div>
+			  </div>
+			  <div class="modal-footer">
+			    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			    <button class="btn btn-primary" id='select_parent'>Save changes</button>
+			  </div>
+			</div>
+
+			{{ $errors->first('parent') }}
+		</div>
+	</div>
+	<!-- ./ video tags -->
+
+	
+ 
+
+
 
 	<!-- video genre -->
 	<div class="control-group {{ $errors->has('genre') ? 'error' : '' }}">

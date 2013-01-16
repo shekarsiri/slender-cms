@@ -3,9 +3,30 @@
 class BaseModel extends Mongor\Model {
 
 
+	protected static $parents = array();
+	protected static $children = array();
+
+	public function getParents(){
+		return $this::$parents;
+	}
+
+	public function getParent(){
+		$id = $this->parent['id'];
+		$type = $this->parent['type'];
+		return ($type && $id) ? $type::find($id) : null;
+	}
+
+	public static function getChildren(){
+		return $this::$children;
+	}
+
 	public static function all(){
 		return self::get();
 	}
+	
+	// public function toArray(){
+
+	// }
 
 	public static function find($id){
 
