@@ -111,6 +111,7 @@ body {
 <?php endif; ?>	
 	
 <?php foreach (Config::get('tv4.modules') as $module => $conf): ?>
+	<?php if ($module!='user'): ?>
 	<!-- permissions -->
 	<div class="control-group">
 		<label class="control-label"><?php echo  ucfirst($module) ; ?></label>
@@ -128,6 +129,7 @@ body {
 		</div>
 	</div>
 	<!-- ./ permissions -->
+	<?php endif; ?>
 <?php endforeach; ?>
 </div>
 

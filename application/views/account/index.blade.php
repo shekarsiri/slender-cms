@@ -115,6 +115,7 @@ body {
 @endif	
 	
 @foreach (Config::get('tv4.modules') as $module => $conf)
+	@if ($module!='user')
 	<!-- permissions -->
 	<div class="control-group">
 		<label class="control-label">{{ ucfirst($module) }}</label>
@@ -132,6 +133,7 @@ body {
 		</div>
 	</div>
 	<!-- ./ permissions -->
+	@endif
 @endforeach
 </div>
 
