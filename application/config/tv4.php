@@ -94,6 +94,28 @@ return array(
 			// - genre auto complete
 
 		),
+        'episode' => array(
+            //- id
+            //- title
+            //- slug
+            //- description
+            //- season
+            //- tags (array)
+            //- parent.id
+            //- parent.type
+            //- updated
+            //- created
+
+            //Relations:
+            //parents: show
+            //children: video
+
+
+            //Front end:
+            //- Autocomplete on season based on what is in existing episode records
+            //- taggable
+            //- slug auto generates from title, but can be overriden. slugs must be unique.
+        ),
 	),
 	'genre_list' => array(
 		"Action",
