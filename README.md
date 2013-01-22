@@ -28,4 +28,4 @@ php composer.phar --verbose install
 This should give you a working TV4 CMS on http://localhost:4002 from the host, and http://localhost:80 from inside the VM.
 
 
-
+testing hook...
