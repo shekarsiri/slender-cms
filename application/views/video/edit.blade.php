@@ -9,8 +9,32 @@
 @section('css')
 	<!-- jQuery tag plugin -->
 	<link href="{{ asset('assets/css/bootstrap-tagmanager.css') }}" rel="stylesheet">
+	
 	<!-- jQuery datetime plugin -->
 	<link href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+	
+	<!-- fineuploader plugin -->
+	<link href="{{ asset('assets/css/fineuploader.css') }}" rel="stylesheet">
+	<style>
+      /* Fine Uploader
+      -------------------------------------------------- */
+      .qq-upload-list {
+        text-align: left;
+      }
+ 
+      /* For the bootstrapped demos */
+      li.alert-success {
+        background-color: #DFF0D8;
+      }
+ 
+      li.alert-error {
+        background-color: #F2DEDE;
+      }
+ 
+      .alert-error .qq-upload-failed-text {
+        display: inline;
+      }
+    </style>
 @endsection
 
 @section('js')
@@ -45,6 +69,77 @@
 		});	
 	</script>
 	<script src="{{ asset('assets/js/slender-parent.js') }}"></script>
+
+	<script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>
+	
+	<!-- Load plupload and all it's runtimes and finally the jQuery queue widget -->
+	<script type="text/javascript" src="{{ asset('assets/js/plupload.full.js') }}"></script>
+
+	<script type="text/javascript">
+	// Custom example logic
+	$(function() {
+		var uploader = new plupload.Uploader({
+			runtimes : 'html5,browserplus',
+			browse_button : 'pickfiles',
+			container : 'container',
+			// max_file_size : '10mb',
+			url : '/video/upload',
+			// filters : [
+			// 	{title : "Image files", extensions : "jpg,gif,png"},
+			// 	{title : "Zip files", extensions : "zip"}
+			// ],
+			// resize : {width : 320, height : 240, quality : 90}
+		});
+
+		uploader.bind('Init', function(up, params) {
+			$('#filelist').html("");
+		});
+
+		uploader.init();
+
+		uploader.bind('FilesAdded', function(up, files) {
+			$.each(files, function(i, file) {
+				$('#filelist').append(
+					'<div id="' + file.id + '">' +
+					file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>' +
+				'</div>');
+			});
+
+			up.refresh(); // Reposition Flash/Silverlight
+
+			uploader.start();
+			$('#pickfiles').attr('disabled', true);
+			$('#upload_bar').parent()
+					.removeClass('progress-success')
+					.addClass('active');
+		});
+
+		uploader.bind('UploadProgress', function(up, file) {
+			$('#upload_bar').parent().show()
+			$('#upload_bar').css('width', file.percent + "%");
+			$('#' + file.id + " b").html(file.percent + "%");
+		});
+
+		uploader.bind('Error', function(up, err) {
+			$('#filelist').append("<div>Error: " + err.code +
+				", Message: " + err.message +
+				(err.file ? ", File: " + err.file.name : "") +
+				"</div>"
+			);
+
+			up.refresh(); // Reposition Flash/Silverlight
+		});
+
+		uploader.bind('FileUploaded', function(up, file) {
+			$('#' + file.id + " b").html("100%");
+			$('#upload_bar').parent()
+					.removeClass('active')
+					.addClass('progress-success');
+
+			$('#pickfiles').attr('disabled', false);
+		});
+	});
+	</script>
 @endsection
 
 {{-- New Laravel 4 Feature in use --}}
@@ -196,12 +291,29 @@ body {
 	<!-- ./ video genre -->
 
 
+	<!-- uploader -->
+	<div class="control-group">
+		<label class="control-label" for="urls_source">Video Uploader</label>
+		<div class="controls">			
+			
+			<div id="container">
+			    <div id="filelist">No runtime found.</div>
+			    <div class="progress progress-striped active hide">
+				  <div class="bar" id="upload_bar" style="width: 0%;"></div>
+				</div>
+			    <a id="pickfiles" class="btn btn-primary" href="#">Select file</a>
+			</div>
+
+
+		</div>
+	</div>
+	<!-- ./ uploader -->
+
 	<!-- urls.source -->
 	<div class="control-group {{ $errors->has('urls_source') ? 'error' : '' }}">
 		<label class="control-label" for="urls_source">URLs Source</label>
 		<div class="controls">
 			<input type="text" name="urls_source" id="urls_source" value="{{  Input::old('urls_source', isset($video->urls['source']) && $video->urls['source'] ? $video->urls['source'] : '') }}" />
-
 			{{ $errors->first('urls_source') }}
 		</div>
 	</div>
