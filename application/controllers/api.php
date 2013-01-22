@@ -16,13 +16,14 @@ class Api_Controller extends Controller {
 	{
 		list($method, $class) = explode('_', $method);
 		$action = Request::get('action');
+        $param = Request::get('param');
 		$class = ucfirst($class);
 		if(class_exists($class)){
 			$object = new $class;
 
 			if(in_array($action, get_class_methods($class))){
-				$res = $object->$action();
-				return Response::json(array(strtolower($class) => $this->getClean($res)));
+				$res = $param ? $object->$action($param) : $object->$action();
+				return Response::json(array(array(strtolower($class) => $this->getClean($res))));
 			}else{
 				//error
 

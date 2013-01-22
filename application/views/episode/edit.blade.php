@@ -18,6 +18,7 @@
 	<script src="{{ asset('assets/js/bootstrap-tagmanager.js') }}"></script>
 
 	<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slender-season.js?2344') }}"></script>
 	<script>
 		$(function(){
 			
@@ -31,16 +32,12 @@
 		        hiddenTagListName: 'tags'
 		      });
 
-            $('.typeahead').typeahead({
-                source: [
-                    @foreach (Config::get('tv4.genre_list') as $season)
-                    "{{ $season }}",
-                    @endforeach
-                ]
+            $('#season').season({
+                showId: '50f9508a7c69dae109000000'
             });
 		});	
 	</script>
-	<script src="{{ asset('assets/js/slender-parent.js') }}"></script>
+    <script src="{{ asset('assets/js/slender-parent.js') }}"></script>
 @endsection
 
 {{-- New Laravel 4 Feature in use --}}
@@ -164,7 +161,7 @@ body {
     <div class="control-group {{ $errors->has('season') ? 'error' : '' }}">
         <label class="control-label" for="season">Season</label>
         <div class="controls">
-            <input type="text" name="season" id="season" autocomplete="off" class="typeahead" value="{{  Input::old('season', $episode->season) }}" />
+            <input type="text" name="season" id="season" autocomplete="off" class="typeahead season" value="{{  Input::old('season', $episode->season) }}" />
             {{ $errors->first('season') }}
         </div>
     </div>
