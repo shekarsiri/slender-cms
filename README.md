@@ -1,4 +1,4 @@
-tv4 cms
+Slender CMS
 ===
 
 Setup
