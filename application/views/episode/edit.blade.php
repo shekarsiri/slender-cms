@@ -18,7 +18,8 @@
 	<script src="{{ asset('assets/js/bootstrap-tagmanager.js') }}"></script>
 
 	<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/js/slender-season.js?2344') }}"></script>
+    <script src="{{ asset('assets/js/slender-season.js') }}"></script>
+    <script src="{{ asset('assets/js/slender-parent.js') }}"></script>
 	<script>
 		$(function(){
 			
@@ -32,12 +33,13 @@
 		        hiddenTagListName: 'tags'
 		      });
 
-            $('#season').season({
+            $('#season').slenderSeason({
                 showId: '50f9508a7c69dae109000000'
             });
+
+            $('.parentHolder').slenderParent();
 		});	
 	</script>
-    <script src="{{ asset('assets/js/slender-parent.js') }}"></script>
 @endsection
 
 {{-- New Laravel 4 Feature in use --}}
@@ -97,7 +99,7 @@ body {
 	<!-- ./ episode tags -->
 	
 	<!-- episode parent -->
-	<div class="control-group {{ $errors->has('parent') ? 'error' : '' }}">
+	<div class="control-group {{ $errors->has('parent') ? 'error' : '' }} parentHolder">
 		<label class="control-label" for="tags">Parent</label>
 		<div class="controls">
 			<input type="hidden" name="parent_id" value="{{  Input::old('parent_id', isset($episode->parent['id']) ? $episode->parent['id'] : '' ) }}" />

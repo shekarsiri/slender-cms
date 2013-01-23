@@ -23,7 +23,7 @@ class Api_Controller extends Controller {
 
 			if(in_array($action, get_class_methods($class))){
 				$res = $param ? $object->$action($param) : $object->$action();
-				return Response::json(array(array(strtolower($class) => $this->getClean($res))));
+				return Response::json(array(strtolower($class) => $this->getClean($res)));
 			}else{
 				//error
 

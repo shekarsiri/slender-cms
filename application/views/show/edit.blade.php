@@ -18,6 +18,7 @@
 	<script src="{{ asset('assets/js/bootstrap-tagmanager.js') }}"></script>
 
 	<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slender-parent.js') }}"></script>
 	<script>
 		$(function(){
 			
@@ -40,9 +41,10 @@
 					@endforeach
 				]
 			});
+
+            $('.parentHolder').slenderParent();
 		});	
 	</script>
-	<script src="{{ asset('assets/js/slender-parent.js') }}"></script>
 @endsection
 
 {{-- New Laravel 4 Feature in use --}}
@@ -112,7 +114,7 @@ body {
 	<!-- ./ show genre -->
 	
 	<!-- show parent -->
-	<div class="control-group {{ $errors->has('parent') ? 'error' : '' }}">
+	<div class="control-group {{ $errors->has('parent') ? 'error' : '' }} parentHolder">
 		<label class="control-label" for="tags">Parent</label>
 		<div class="controls">
 			<input type="hidden" name="parent_id" value="{{  Input::old('parent_id', isset($show->parent['id']) ? $show->parent['id'] : '' ) }}" />

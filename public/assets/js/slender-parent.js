@@ -1,48 +1,83 @@
-// TODO: move this js code to separate js file as component
-// and organize universal parent assignment for objects
+$(function() {
+    $.fn.slenderParent = function (params)
+    {
+        var defaults=
+        {
+            parentTypeSelector: '#parent_type',
+            parentErrorSelector: '#parent_error',
+            parentIdSelector: '#parent_id',
+            parentValueSelector: '#parent_value',
+            parentRemoveSelector: '#parent_remove',
+            parentSelectSelector: '#select_parent',
+            modalSelector: '#myModal',
 
-$(function(){
-	 
-	$('#parent_type').on('change', function(){
-		$('#parent_error').hide();
-		$("input[name='"+ $(this).attr('id') +"']").val($(this).val());
+            parentTypeName: 'parent_type',
+            ajaxUrl: '/api/',
+            ajaxMethod: 'GET'
 
-		$.ajax({
-			type: "GET",
-			url: "/api/" + $(this).val(),
-			data: {action: 'all'},
-			dataType: "json"
-		}).done(function(res) {
-			var name = $('#parent_type').val().toLowerCase();
-			$.each(res[name], function(index, value) {
-				$('#parent_id').append($("<option></option>")
-						.attr("value",value.id)
-						.text(value.title));
-			});
-		});
-	});
+        };
 
-	$('#parent_id').on('change', function(){
-		$('#parent_error').hide();
-		$("input[name='"+ $(this).attr('id') +"']").val($(this).val());
-		$('#parent_value').html($("input[name='parent_type']").val() + ": " + $("#parent_id option:selected").text() );
-		$("#parent_remove").show();
-	});
+        var options=$.extend(defaults, params);
 
-	$("#select_parent").on('click', function(){
-		if(!$('#parent_id').val() || !$('#parent_type').val()){
-			$('#parent_error').show();
-			return false;
-		}
-		$('#myModal').modal('hide');
-		return false;
-	});
+        return this.each(function()
+        {
+            $this = $(this);
 
-	$("#parent_remove").on('click', function(){
-		$("input[name='parent_id']").val('');
-		$("input[name='parent_type']").val('');
-		$('#parent_value').html('');
-		$(this).hide();
-		return false;
-	});
+            var initTypeSelect = function() {
+                $this.find(options.parentTypeSelector).on('change', function(){
+                    $this.find(options.parentErrorSelector).hide();
+                    $this.find("input[name='"+ $(this).attr('id') +"']").val($(this).val());
+
+                    $.ajax({
+                        type: options.ajaxMethod,
+                        url: options.ajaxUrl + $(this).val(),
+                        data: {action: 'all'},
+                        dataType: "json"
+                    }).done(function(res) {
+                            var name = $this.find(options.parentTypeSelector).val().toLowerCase();
+                            $.each(res[name], function(index, value) {
+                                $this.find(options.parentIdSelector).append($("<option></option>")
+                                    .attr("value",value.id)
+                                    .text(value.title));
+                            });
+                        });
+                });
+            }
+
+            var initParentId = function() {
+                $this.find(options.parentIdSelector).on('change', function(){
+                    $this.find(options.parentErrorSelector).hide();
+                    $this.find("input[name='"+ $(this).attr('id') +"']").val($(this).val());
+                    $this.find(options.parentValueSelector).html($this.find("input[name='"+options.parentTypeName+"']").val() + ": " + $this.find(options.parentIdSelector+" option:selected").text() );
+                    $this.find(options.parentRemoveSelector).show();
+                });
+            }
+
+            var initParentSelect = function() {
+                $this.find(options.parentSelectSelector).on('click', function(){
+                    if(!$this.find(options.parentIdSelector).val() || !$this.find(options.parentTypeSelector).val()){
+                        $this.find(options.parentErrorSelector).show();
+                        return false;
+                    }
+                    $this.find(options.modalSelector).modal('hide');
+                    return false;
+                });
+            }
+
+            var initRemoveParent = function() {
+                $this.find(options.parentRemoveSelector).on('click', function(){
+                    $this.find("input[name='parent_id']").val('');
+                    $this.find("input[name='parent_type']").val('');
+                    $this.find(options.parentValueSelector).html('');
+                    $this.find(this).hide();
+                    return false;
+                });
+            }
+
+            initTypeSelect();
+            initParentId();
+            initParentSelect();
+            initRemoveParent();
+        });
+    };
 });
