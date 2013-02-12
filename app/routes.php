@@ -16,7 +16,7 @@ Route::get('/', function()
 	return View::make('home');
 });
 
-Route::get('/page', function()
+Route::get('/login', function()
 {
-    return View::make('page');
+    return View::make('auth.login');
 });

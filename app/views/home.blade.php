@@ -12,9 +12,3 @@
   </p>
 </div>
 @stop
-
-@section('styles')
-                body {
-                padding-top: 60px;
-            }
-@stop
