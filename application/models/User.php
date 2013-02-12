@@ -2,7 +2,7 @@
 
 class User extends BaseModel {
 
-	public static $collection = 'user';
+	public static $collection = 'users';
 
     // public function Roles()
     // {

@@ -38,5 +38,5 @@ return array(
 	'docs' => array('handles' => 'docs'),
 	'mongor' => array('auto' => true),
 	'bootstrapper' => array('auto' => true),
-
+    'httpful' => array('auto' => true),
 );

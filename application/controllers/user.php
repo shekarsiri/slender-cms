@@ -1,5 +1,4 @@
 <?php
-
 class User_Controller extends Base_Controller
 {
 	public $restful = true;
@@ -15,6 +14,23 @@ class User_Controller extends Base_Controller
 		if(!Auth::user()->has_access("user.view")){
 			return Response::error('401');
 		}
+
+        $host = Config::get('api.host');
+        $uri = $host . "/users";
+        $response = Httpful::get($uri)
+            ->addHeader('Host', 'localhost')
+            ->addHeader('Authentication', Config::get('api.key'))
+            ->expectsJson()
+            ->send();
+        $users = $response->body->users;
+        echo "<pre>"; print_r($users); die();
+
+        /*$template = Request::init()
+            ->method(Http::POST)
+            ->withoutStrictSsl()
+            ->expectsHtml()
+            ->sendsType(Mime::FORM);*/
+
 		return View::make('user/index')->with('users', User::get());
 	}
 
