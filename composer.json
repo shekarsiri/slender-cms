@@ -1,0 +1,15 @@
+{
+	"require": {
+		"laravel/framework": "4.0.*",
+		"symfony/http-foundation": "2.2.*"
+	},
+	"autoload": {
+		"classmap": [
+			"app/commands",
+			"app/controllers",
+			"app/models",
+			"app/tests/TestCase.php"
+		]
+	},
+	"minimum-stability": "dev"
+}
