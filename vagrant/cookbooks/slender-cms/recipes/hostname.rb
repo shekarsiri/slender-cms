@@ -1,6 +1,6 @@
 bash "set_hostname" do
   user "root"
   code <<-EOH
-    hostname tv4.local
+    hostname slender-cms.local
   EOH
 end

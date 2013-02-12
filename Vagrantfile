@@ -8,14 +8,14 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :chef_solo do |chef|
 	chef.cookbooks_path = "vagrant/cookbooks"
-	chef.add_recipe("tv4::nameservers")
-	chef.add_recipe("tv4::hostname")
-	chef.add_recipe("tv4::bash")
-	chef.add_recipe("tv4::epel")
-	chef.add_recipe("tv4::scm")
-	chef.add_recipe("tv4::mongo")
-	chef.add_recipe("tv4::php")
-	chef.add_recipe("tv4::apache")
+	chef.add_recipe("slender-cms::nameservers")
+	chef.add_recipe("slender-cms::hostname")
+	chef.add_recipe("slender-cms::bash")
+	chef.add_recipe("slender-cms::epel")
+	chef.add_recipe("slender-cms::scm")
+	chef.add_recipe("slender-cms::mongo")
+	chef.add_recipe("slender-cms::php")
+	chef.add_recipe("slender-cms::apache")
   end
 
 end
