@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function()
+Route::get('/', 'HomeController@showWelcome');
+
+/*Route::get('/', function()
 {
 	return View::make('home');
-});
+});*/
 
 Route::get('/login', function()
 {
