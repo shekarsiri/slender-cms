@@ -1,16 +1,10 @@
 <?php
 
-use Zend\Http\Request as Request;
-use Zend\Http\Client as Client;
+// Resource without Auth
+Route::resource('login', 'LoginController');
 
-Route::get('/', 'HomeController@showWelcome');
-
-// Route::get('/', function()
-// {
-// 	return View::make('home');
-// });
-
-Route::get('/login', function()
+// Resources with Auth
+Route::group(array('before' => 'auth'), function()
 {
-    return View::make('auth.login');
+    Route::resource('/', 'HomeController');
 });
