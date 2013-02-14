@@ -79,6 +79,7 @@ return array(
 	*/
 
 	'providers' => array(
+		'Dws\Slender\Api\ApiServiceProvider',
 
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
