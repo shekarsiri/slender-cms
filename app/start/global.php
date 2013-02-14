@@ -1,5 +1,5 @@
 <?php
-
+use Dws\Slender\Api;
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader
@@ -49,9 +49,27 @@ Log::useDailyFiles(__DIR__.'/../storage/logs/'.$logFile);
 
 App::error(function(Exception $exception, $code)
 {
+    die('aaa');
 	Log::error($exception);
 });
 
+App::error(function(ApiException $exception, $code)
+{
+
+    var_dump("eee>", $exception);
+    Log::error($exception);
+});
+
+
+App::fatal(function($exception)
+{
+    Log::error($exception);
+});
+
+App::error(function(RuntimeException $exception)
+{
+    Log::error($exception);
+});
 /*
 |--------------------------------------------------------------------------
 | Require The Filters File

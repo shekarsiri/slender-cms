@@ -29,6 +29,8 @@ class LoginController extends BaseController {
 	 */
 	public function store()
 	{
+        throw new \Exception('aaaa');
+
 		// Declare the rules for the form validation.
         //
         $rules = array(
@@ -51,7 +53,12 @@ class LoginController extends BaseController {
         {
             // Try to log the user in.
             //
-            $user = $this->api->get("users");
+            $user = $this->api->post("auth", array(
+                                                'email' => $email,
+                                                'password' => $password
+                                            ));
+            
+            var_dump($user);
             
             if (Auth::attempt(array('email' => $email, 'password' => $password)))
             {

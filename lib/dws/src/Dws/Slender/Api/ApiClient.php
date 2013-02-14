@@ -35,8 +35,26 @@ class ApiClient {
         return $this->run();
     }
 
+    public function post($path, array $params = array()){
+        $this->request->setMethod(Request::METHOD_POST);
+        $this->request->setUri($this->getUri($path));
+        $this->client->setParameterPost($params);
+        return $this->run();
+    }
+
     private function run(){
         $response = $this->client->dispatch($this->request);
+
+        if($response->isSuccess()){
+
+        }else{
+            $error = json_decode($response->getBody());
+            // throw new \Exception("Error Processing Request", 1);
+            
+            throw new ApiException($error);
+        }
+        var_dump($response, $response->getBody());
+
         return $response->isSuccess() ? $response->getBody() : false;
         // if ($response) {
         //     return Json::decode($response, true);
