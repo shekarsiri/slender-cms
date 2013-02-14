@@ -2,6 +2,11 @@
 
 class BaseController extends Controller {
 
+	public $api;
+
+	public function __construct(){
+		$this->api = App::make('api');
+	}
 	/**
 	 * Setup the layout used by the controller.
 	 *

@@ -19,25 +19,10 @@ class HomeController extends BaseController {
 
 	public function showWelcome()
 	{
-        error_reporting(E_ALL);
-        $host = '10.0.2.2:4003/';
-        $uri = '/users';
-        $headers = array(
-            'Authentication: ' . 'key',
-            'Host: ' . 'localhost'
-        );
-        $method = Request::METHOD_GET;
+        
+        var_dump($this->api->get("users"));
 
-        $request = new Request();
-        $request->setUri($host . $uri);
-        $request->setMethod($method);
-        $request->getHeaders()->addHeaders($headers);
-        $client = new Client();
-        $client->setAdapter('\Zend\Http\Client\Adapter\Curl');
-        $response = $client->dispatch($request);
-        $response = $response->isSuccess() ? $response->getBody() : false;
-
-		return View::make('hello');
+		return View::make('home');
 	}
 
 }
