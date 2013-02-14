@@ -13,6 +13,7 @@
 
 Route::get('/', 'HomeController@showWelcome');
 
+Route::get('/upload', 'UploadController@uploadVideo');
 /*Route::get('/', function()
 {
 	return View::make('home');
