@@ -1,43 +1,77 @@
 <?php
-use Zend\Http\Request as Request;
-use Zend\Http\Client as Client;
 
 class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
-
-	public function showWelcome()
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
 	{
-        error_reporting(E_ALL);
-        $host = '10.0.2.2:4003/';
-        $uri = '/users';
-        $headers = array(
-            'Authentication: ' . 'key',
-            'Host: ' . 'localhost'
-        );
-        $method = Request::METHOD_GET;
+		var_dump($this->api->get("users"));
 
-        $request = new Request();
-        $request->setUri($host . $uri);
-        $request->setMethod($method);
-        $request->getHeaders()->addHeaders($headers);
-        $client = new Client();
-        $client->setAdapter('\Zend\Http\Client\Adapter\Curl');
-        $response = $client->dispatch($request);
-        $response = $response->isSuccess() ? $response->getBody() : false;
+		return View::make('home');
+	}
 
-		return View::make('hello');
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		//
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		//
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		//
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		//
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		//
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		//
 	}
 
 }

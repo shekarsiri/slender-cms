@@ -6,15 +6,12 @@
         <div class="span2">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sites</li>
+              <li class="active"><a href="#">Show All Sites</a></li>
+              <li><a href="#">Add new Site</a></li>
+              <li class="nav-header">Users</li>
+              <li><a href="#">Add New User</a></li>
+              <li><a href="#">Show All Users</a></li>
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>
               <li><a href="#">Link</a></li>

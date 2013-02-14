@@ -10,7 +10,10 @@
 			"app/controllers",
 			"app/models",
 			"app/tests/TestCase.php"
-		]
+		],
+		"psr-0": {
+        	"Dws\\Slender\\Api": "lib/dws/src"
+		}
 	},
 	"minimum-stability": "dev"
 }
