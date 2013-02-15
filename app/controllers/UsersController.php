@@ -9,8 +9,7 @@ class UsersController extends BaseController {
 	 */
 	public function index()
 	{
-        $response = json_decode($this->api->get("users"));
-		return View::make('users/index')->with('users', $response->users);
+		return View::make('users/index')->with('users', $this->api->get("users")->users);
 	}
 
 	public function show($id)
