@@ -1,6 +1,6 @@
 <?php
 
-class HomeController extends BaseController {
+class RolesController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,9 +9,8 @@ class HomeController extends BaseController {
 	 */
 	public function index()
 	{
-		var_dump($this->api->get("users"));
-
-		return View::make('home');
+        $response = json_decode($this->api->get("roles"));
+        return View::make('roles/index')->with('roles', $response->roles);
 	}
 
 	/**
