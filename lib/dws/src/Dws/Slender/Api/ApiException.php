@@ -1,19 +1,23 @@
 <?php namespace Dws\Slender\Api;
 
-use \Exception as GenericException;
 use Illuminate\Support\MessageBag;
 
-class ApiException extends GenericException{
+class ApiException extends \Exception
+{
 
     protected $messages = array();
 
-    public function __construct($message = null, $code = 0, Exception $previous = null){
-        // if($message instanceof MessageBag){
-        //     $message->setFormat(':message');
-        //     $this->messages = $message->getMessages();
-        // }
-        parent::__construct("Validation Error", $code, $previous);
-        // var_dump($message);
+    public function __construct($message = null, $code = 0, ApiException $previous = null){
+
+        if(!is_array($message)){
+            $message =(array) $message;
+            if(isset($message['messages'])){
+                $message = $message['messages'];
+            }
+        }
+
+        $this->messages = $message;
+        // parent::__construct("API Error", $code, $previous);
     }
 
     public function getMessages(){
