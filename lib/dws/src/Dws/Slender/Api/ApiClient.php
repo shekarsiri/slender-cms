@@ -38,20 +38,6 @@ class ApiClient {
     }
 
     public function post($path, array $params = array()){
-        //works
-        // $request = new Request();
-        // $request->setUri($this->getUri($path));
-        // $request->setMethod('POST');
-        // $request->getPost()->set('email', 'bar');
-
-        // $client = new Client();
-        // $client->setEncType("multipart/form-data");
-        // $response = $client->dispatch($request);
-
-        // if ($response->isSuccess()) {
-        //     //  the POST was successful
-        // }
-
         $this->request->setMethod(Request::METHOD_POST);
         $this->request->setUri($this->getUri($path));
         $this->request->getPost()->fromArray($params);

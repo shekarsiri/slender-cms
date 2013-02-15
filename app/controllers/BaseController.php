@@ -6,6 +6,10 @@ class BaseController extends Controller {
 
 	public function __construct(){
 		$this->api = App::make('api');
+
+		if(Auth::check()){
+			$this->api->setAuth(Auth::user()->key);
+		}
 	}
 	/**
 	 * Setup the layout used by the controller.
