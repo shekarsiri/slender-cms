@@ -1,5 +1,5 @@
 <?php
-use Dws\Slender\Api;
+use Dws\Slender\Api\ApiException;
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader
@@ -49,17 +49,14 @@ Log::useDailyFiles(__DIR__.'/../storage/logs/'.$logFile);
 
 App::error(function(Exception $exception, $code)
 {
-    die('aaa');
-	Log::error($exception);
-});
-
-App::error(function(ApiException $exception, $code)
-{
-
-    var_dump("eee>", $exception);
     Log::error($exception);
 });
 
+App::error(function(ApiException $exception)
+{
+    var_dump($exception);
+    // return Redirect::refresh()->with('error', 'Email/password invalid.');
+});
 
 App::fatal(function($exception)
 {

@@ -9,7 +9,7 @@ class HomeController extends BaseController {
 	 */
 	public function index()
 	{
-		var_dump($this->api->get("users"));
+		// var_dump($this->api->get("users"));
 
 		return View::make('home');
 	}

@@ -1,5 +1,7 @@
 <?php
 
+// throw new Dws\Slender\Api\ApiException('aaa');
+
 // Resource without Auth
 Route::resource('login', 'LoginController');
 
