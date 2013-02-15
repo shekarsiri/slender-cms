@@ -2,6 +2,8 @@
 
 use Zend\Http\Request as Request;
 use Zend\Http\Client as Client;
+use Zend\Http\Server\Client as ServerClient;
+// use Dws\Slender\Api\ApiException;
 
 class ApiClient {
 
@@ -35,14 +37,38 @@ class ApiClient {
         return $this->run();
     }
 
+    public function post($path, array $params = array()){
+        //works
+        // $request = new Request();
+        // $request->setUri($this->getUri($path));
+        // $request->setMethod('POST');
+        // $request->getPost()->set('email', 'bar');
+
+        // $client = new Client();
+        // $client->setEncType("multipart/form-data");
+        // $response = $client->dispatch($request);
+
+        // if ($response->isSuccess()) {
+        //     //  the POST was successful
+        // }
+
+        $this->request->setMethod(Request::METHOD_POST);
+        $this->request->setUri($this->getUri($path));
+        $this->request->getPost()->fromArray($params);
+        $this->client->setEncType("multipart/form-data");   
+        return $this->run();
+    }
+
     private function run(){
         $response = $this->client->dispatch($this->request);
+        if($response->isSuccess()){
+            return json_decode($response->getBody());
+        }else{
+            $error = json_decode($response->getBody());
+            throw new ApiException($error);
+        }
+
         return $response->isSuccess() ? $response->getBody() : false;
-        // if ($response) {
-        //     return Json::decode($response, true);
-        // } else {
-        //     return false;
-        // }
     }
 
     private function getUri($path, $site=null){

@@ -1,5 +1,11 @@
 <?php
 
+use Dws\Slender\Api\ApiException;
+
+use Zend\Http\Request;
+use Zend\Http\Client;
+
+
 class LoginController extends BaseController {
 
 	/**
@@ -20,15 +26,15 @@ class LoginController extends BaseController {
 	public function create()
 	{
 		//
-	}
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {   
 		// Declare the rules for the form validation.
         //
         $rules = array(
@@ -51,7 +57,18 @@ class LoginController extends BaseController {
         {
             // Try to log the user in.
             //
-            $user = $this->api->get("users");
+
+            // try {
+            //     $user = $this->api->post("auth", array(
+            //                                         'email' => $email,
+            //                                         'password' => $password
+            //                                     ));
+            // } catch (ApiException $e) {
+            //     return Redirect::to('login')->with('error', implode("<br/>", $e->getMessages()));
+            // }
+
+            // var_dump(Auth::attempt(array('email' => $email, 'password' => $password)));
+            // die;
             
             if (Auth::attempt(array('email' => $email, 'password' => $password)))
             {
@@ -80,7 +97,16 @@ class LoginController extends BaseController {
 	 */
 	public function show($id)
 	{
-		//
+        if($id=='logout'){ // fuck! This should be fixed
+            // Log the user out.
+            //
+            Auth::logout();
+
+            // Redirect to the users page.
+            //
+            return Redirect::to('login')->with('success', 'Logged out with success!');
+        }
+		
 	}
 
 	/**

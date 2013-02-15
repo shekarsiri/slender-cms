@@ -70,9 +70,13 @@
               </button>
               <a class="brand" href="/">Slender</a>
               <div class="nav-collapse collapse">
+                @if (Auth::check())
                 <p class="navbar-text pull-right">
-                  Logged in as <a href="#" class="navbar-link">Admin</a>
+                  Logged in as <a href="#" class="navbar-link">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</a>
+
+                  <a href="{{ URL::to('login/logout') }}">Logout</a>
                 </p>
+                @endif
                 <ul class="nav">
                   <li class="active"><a href="/">Home</a></li>
                   <li><a href="#about">About</a></li>
