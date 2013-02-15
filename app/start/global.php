@@ -47,26 +47,26 @@ Log::useDailyFiles(__DIR__.'/../storage/logs/'.$logFile);
 |
 */
 
-App::error(function(Exception $exception, $code)
-{
-    Log::error($exception);
-});
+// App::error(function(Exception $exception, $code)
+// {
+//     Log::error($exception);
+// });
 
-App::error(function(ApiException $exception)
-{
-    var_dump($exception);
-    // return Redirect::refresh()->with('error', 'Email/password invalid.');
-});
+// App::error(function(ApiException $exception)
+// {
+//     var_dump($exception);
+//     // return Redirect::refresh()->with('error', 'Email/password invalid.');
+// });
 
-App::fatal(function($exception)
-{
-    Log::error($exception);
-});
+// App::fatal(function($exception)
+// {
+//     Log::error($exception);
+// });
 
-App::error(function(RuntimeException $exception)
-{
-    Log::error($exception);
-});
+// App::error(function(RuntimeException $exception)
+// {
+//     Log::error($exception);
+// });
 /*
 |--------------------------------------------------------------------------
 | Require The Filters File
