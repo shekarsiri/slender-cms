@@ -80,9 +80,10 @@ return array(
 
 	'providers' => array(
 		'Dws\Slender\Api\ApiServiceProvider',
+		'Dws\Slender\Api\Auth\ApiAuthServiceProvider',
 
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
-		'Illuminate\Auth\AuthServiceProvider',
+		// 'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
 		'Illuminate\Foundation\Providers\CommandCreatorServiceProvider',
 		'Illuminate\Session\CommandsServiceProvider',
