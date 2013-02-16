@@ -49,21 +49,10 @@ class ApiClient {
         $this->request->setMethod(Request::METHOD_PUT);
         $this->request->setUri($this->getUri($path));
         $content = $this->paramsToString($params);
-        $this->request->setContent($content);
+        $this->request->setContent(json_encode($params));
         return $this->run();
     }
-
-    private function paramsToString($params)
-    {
-        $outParams = array();
-
-        foreach ($params as $k => $v) {
-            $outParams[] = '"'.$k.'"' .":". '"'.$v.'"'; 
-        }
-
-        return '{' . join(",",$outParams) . '}';
-    }
-
+    
     private function run(){
         $response = $this->client->dispatch($this->request);
         if($response->isSuccess()){
