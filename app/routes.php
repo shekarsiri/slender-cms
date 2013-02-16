@@ -17,6 +17,9 @@ Route::get('roles/create', 'RolesController@create');
 Route::post('roles/create', 'RolesController@store');
 Route::any('roles/{id}/destroy', 'RolesController@destroy');
 
+Route::any('password/forgot', array('uses' => 'PasswordController@forgot', 'as' => 'forgotpassword'));
+Route::post('password/send', array('uses' => 'PasswordController@send', 'as' => 'sendpassword'));
+
 Route::any('sites', 'SitesController@index');
 
 // Resources with Auth
