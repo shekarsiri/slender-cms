@@ -48,7 +48,6 @@ class ApiClient {
     public function put($path, array $params = array()){
         $this->request->setMethod(Request::METHOD_PUT);
         $this->request->setUri($this->getUri($path));
-        $content = $this->paramsToString($params);
         $this->request->setContent(json_encode($params));
         return $this->run();
     }
