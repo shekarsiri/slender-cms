@@ -31,7 +31,6 @@ class PasswordController extends BaseController {
         } else {
 
             $email = Input::get('email');
-
             $response = $this->api->get("users?where[]=email:{$email}");
             
             if ($response->meta->count === 0) {
@@ -39,12 +38,13 @@ class PasswordController extends BaseController {
                 return Redirect::route('forgotpassword')->withErrors($this->messageBag);
             }
 
-            $data = array('link' => Crypt::encrypt($email));
+            $userId = $response->users[0]->_id;
+            $data = array('link' => Crypt::encrypt($userId));
 
             /*
             Mail::send('emails.auth.reminder', $data, function($m)
             {
-                $m->to('jsamos@gmail.com', 'Juni Samos')->subject('Welcome!');
+                $m->to($email, 'Admin')->subject('Reset Password');
             });
             */
 
@@ -57,6 +57,18 @@ class PasswordController extends BaseController {
     public function reset($data)
     {
 
+        if (Input::get('password1') !== Input::get('password2')) { 
+            $this->messageBag->add('password', "the provided passwords do not match");
+            return Redirect::route('resetpassword', array($data))->withErrors($this->messageBag);
+        }
+
+        if (Request::getMethod() == 'POST') {
+            $userId = Crypt::decrypt($data);
+            $response = $this->api->put("users/{$userId}", array('password' => Input::get('password1')));
+            return Redirect::to('/login')->with('success', "Your password has been updated successfully!"); 
+        }
+
+        return View::make('password.reset');
     }
 
 }
