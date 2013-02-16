@@ -65,7 +65,7 @@ class PasswordController extends BaseController {
         if (Request::getMethod() == 'POST') {
             $userId = Crypt::decrypt($data);
             $response = $this->api->put("users/{$userId}", array('password' => Input::get('password1')));
-            return Redirect::to('/login')->with('success', "Your password has been updated successfully!"); 
+            return Redirect::to('login')->with('success', "Your password has been updated successfully!"); 
         }
 
         return View::make('password.reset');
