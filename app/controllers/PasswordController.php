@@ -7,6 +7,7 @@ class PasswordController extends BaseController {
     public function __construct(MessageBag $messageBag)
     {
         $this->messageBag = $messageBag;
+        parent::__construct();
     }
 
     public function forgot()
@@ -29,22 +30,33 @@ class PasswordController extends BaseController {
             
         } else {
 
-            $data = array('link' => 'sha1');
+            $email = Input::get('email');
 
-            if (false) {
-                $this->messageBag->add('email', "the provided email doesn't exists");    
+            $response = $this->api->get("users?where[]=email:{$email}");
+            
+            if ($response->meta->count === 0) {
+                $this->messageBag->add('email', "the provided email does not exist");    
                 return Redirect::route('forgotpassword')->withErrors($this->messageBag);
             }
 
+            $data = array('link' => Crypt::encrypt($email));
+
+            /*
             Mail::send('emails.auth.reminder', $data, function($m)
             {
                 $m->to('jsamos@gmail.com', 'Juni Samos')->subject('Welcome!');
             });
+            */
 
-           return Redirect::route('forgotpassword')->with('success', 'Please check your email for instructions on how to reset your password.'); 
+           return Redirect::route('forgotpassword')->with('success', "Please check your email for instructions on how to reset your password. {$data['link']}"); 
 
         }
                 
+    }
+
+    public function reset($data)
+    {
+
     }
 
 }
