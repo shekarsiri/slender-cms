@@ -91,7 +91,12 @@ class ApiClient {
             $this->request->setMethod(Request::METHOD_GET);
             $endpoint = strtolower(substr($name, 3));
             $path = $this->getUri($endpoint);
-            $this->request->setUri($path . $args[0]);
+
+            if (isset($args[0])) {
+                $path = $path . "/" . $args[0];    
+            }
+
+            $this->request->setUri($path);
         
         } elseif (strstr($name, 'post')) {
 
