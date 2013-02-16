@@ -31,6 +31,11 @@ class ApiClient {
         $this->auth = $auth;
     }
 
+    public function setSite($site)
+    {
+        $this->site = $site;
+    }
+
     public function get($path){
         $this->request->setMethod('GET');
         $this->request->setUri($this->getUri($path));
@@ -65,6 +70,64 @@ class ApiClient {
         $uri[] = $path;
         return implode("/", $uri);
     }
+
+    /**
+     * Convenience methods for returning a specific content type from the API.
+     *
+     * @param string $route
+     * @return array
+     */
+    public function __call($name, $args) {
+
+        if (method_exists($this,$name)) {
+            return $this->$name;
+        }
+
+        $isPlural = (substr($name,-1) == 's');
+
+        if (strstr($name, 'get')) {
+        
+            $name = ($isPlural) ? $name : $name . 's';
+            $this->request->setMethod(Request::METHOD_GET);
+            $endpoint = strtolower(substr($name, 3));
+            $path = $this->getUri($endpoint);
+            $this->request->setUri($path . $args[0]);
+        
+        } elseif (strstr($name, 'post')) {
+
+            $this->request->setMethod(Request::METHOD_POST);
+            $this->request->setContent(json_encode($args[0]));
+            $endpoint = strtolower(substr($name, 4));
+            $path = $this->getUri($endpoint);
+            $this->request->setUri($path);
+            $this->client->setEncType("multipart/form-data");
+        
+        } elseif (strstr($name, 'put')) {
+
+            $_id = $args[0];
+            $payload = $args[1];
+            $this->request->setMethod(Request::METHOD_PUT);
+            $this->request->setContent(json_encode($payload));
+            $endpoint = strtolower(substr($name, 3));
+            $path = $endpoint . '/' . $_id;
+            $path = $this->getUri($path);
+            $this->request->setUri($path);
+            $this->client->setEncType("multipart/form-data");
+
+        }
+
+        $response = $this->run();
+        
+        if (!$isPlural || $this->request->getMethod() != 'GET') {
+            $response = $response->$endpoint;
+            return $response[0];
+        }
+
+        return $response;
+    } 
+
+
+
 }
 
 
