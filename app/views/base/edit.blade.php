@@ -10,7 +10,7 @@
         <div class="control-group {{ $errors->has($field) ? 'error' : '' }}">
             <label class="control-label" for="{{ $field }}">{{ $field }}</label>
             <div class="controls">
-                <input type="text" name="{{ $field }}" id="{{ $field }}" value="{{  Input::old($field, $data->$field) }}" />
+                <input type="text" name="{{ $field }}" id="{{ $field }}" value="{{ Input::old($field, $data->$field) }}" />
                 {{{ $errors->first($field) }}}
             </div>
         </div>

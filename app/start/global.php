@@ -52,11 +52,11 @@ Log::useDailyFiles(__DIR__.'/../storage/logs/'.$logFile);
 //     Log::error($exception);
 // });
 
-// App::error(function(ApiException $exception)
-// {
-//     var_dump($exception);
-//     // return Redirect::refresh()->with('error', 'Email/password invalid.');
-// });
+App::error(function(ApiException $exception)
+{
+    var_dump($exception);
+    // return Redirect::refresh()->with('error', 'Email/password invalid.');
+});
 
 // App::fatal(function($exception)
 // {

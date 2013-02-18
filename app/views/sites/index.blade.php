@@ -15,13 +15,13 @@
         <tbody>
         @foreach ($sites as $id => $site)
         <tr>
-        <td>{{ $site->title }}</td>
-        <td class="text-center" style='width:100px'>
-            <div class="btn-group">
-              <a href='/sites/{{ $site->_id }}/delete' class="btn btn-mini btn-danger">Delete</a>
-              <a href='/sites/{{ $site->_id }}' class="btn btn-mini btn-primary">Edit</a>
-            </div>
-        </td>
+            <td>{{ $site->title }}</td>
+            <td class="text-center" style='width:100px'>
+                <div class="btn-group">
+                  <a href='/sites/{{ $site->_id }}/delete' class="btn btn-mini btn-danger">Delete</a>
+                  <a href='/sites/{{ $site->_id }}' class="btn btn-mini btn-primary">Edit</a>
+                </div>
+            </td>
         </tr>
         @endforeach
         </tbody>

@@ -82,7 +82,7 @@ class BaseController extends Controller {
     {
         $response = $this->api->get($this->package."/".$id);
 
-        if($response = $response->sites[0]){
+        if($response = $response->{$this->package}[0]){
             $options = $this->api->options($this->package);
             $method = 'POST';
             $options = $options->PUT;

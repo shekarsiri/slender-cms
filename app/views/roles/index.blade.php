@@ -3,14 +3,27 @@
 @section('content')
 <div class="page-header">
     <h1>Roles</h1>
-    <button class="btn-primary" onclick="document.location='roles/create'" type="button">Add New Role</button><br/>
     <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th><a href='/roles/create' class="btn btn-mini btn-success">Create New</a></th>
+                
+            </tr>
+        </thead>
         <tbody>
-        @foreach ($roles as $id => $role)
-        <tr>
-        <td><a href="roles/{{ $role->_id }}">{{ $role->name }} </a></td>
-        </tr>
-        @endforeach
+        <tbody>
+            @foreach ($roles as $id => $role)
+            <tr>
+                <td>{{ $role->name }}</td>
+                <td class="text-center" style='width:100px'>
+                    <div class="btn-group">
+                      <a href='/roles/{{ $role->_id }}/delete' class="btn btn-mini btn-danger">Delete</a>
+                      <a href='/roles/{{ $role->_id }}' class="btn btn-mini btn-primary">Edit</a>
+                    </div>
+                </td>
+            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
