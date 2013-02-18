@@ -23,6 +23,7 @@
         @endif
 
     @endforeach
+
         <div class="control-group">
             <label class="control-label">Permissions</label>
 
@@ -41,17 +42,17 @@
                         <td>Sites</td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                <input type="checkbox" name="permissions[global][sites][read]" {{ (isset($data->permissions->global->sites->read) && $data->permissions->global->sites->read) ? 'checked' : '' }} />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                <input type="checkbox" name="permissions[global][sites][write]" {{ (isset($data->permissions->global->sites->write) && $data->permissions->global->sites->write) ? 'checked' : '' }} />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                              <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                <input type="checkbox" name="permissions[global][sites][delete]" {{ (isset($data->permissions->global->sites->delete) && $data->permissions->global->sites->delete) ? 'checked' : '' }} />
                             </label>
                         </td>
                     </tr>
@@ -59,17 +60,17 @@
                         <td>Roles</td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                <input type="checkbox" name="permissions[global][roles][read]" {{ (isset($data->permissions->global->roles->read) && $data->permissions->global->roles->read) ? 'checked' : '' }} />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                <input type="checkbox" name="permissions[global][roles][write]" {{ (isset($data->permissions->global->roles->write) && $data->permissions->global->roles->write) ? 'checked' : '' }} />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                              <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                <input type="checkbox" name="permissions[global][roles][delete]" {{ (isset($data->permissions->global->roles->delete) && $data->permissions->global->roles->delete) ? 'checked' : '' }} />
                             </label>
                         </td>
                     </tr>
@@ -77,17 +78,17 @@
                         <td>Users</td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                <input type="checkbox" name="permissions[global][users][read]" {{ (isset($data->permissions->global->users->read) && $data->permissions->global->users->read) ? 'checked' : '' }} />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                <input type="checkbox" name="permissions[global][users][write]" {{ (isset($data->permissions->global->users->write) && $data->permissions->global->users->write) ? 'checked' : '' }} />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                              <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                <input type="checkbox" name="permissions[global][users][delete]" {{ (isset($data->permissions->global->users->delete) && $data->permissions->global->users->delete) ? 'checked' : '' }} />
                             </label>
                         </td>
                     </tr>
