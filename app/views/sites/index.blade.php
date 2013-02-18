@@ -9,6 +9,8 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th><a href='/sites/create'>Create New</a></th>
+            
         </tr>
         </thead>
         <tbody>
