@@ -1,5 +1,6 @@
 <?php
 
+
 // Route::group(array('prefix' => 'admin'), function()
 // {
 
@@ -27,7 +28,12 @@
         Route::post('roles/create', 'RolesController@store');
         Route::any('roles/{id}/destroy', 'RolesController@destroy');
 
+        Route::get('password/forgot', array('uses' => 'PasswordController@forgot', 'as' => 'forgotpassword'));
+        Route::post('password/send', array('uses' => 'PasswordController@send', 'as' => 'sendpassword'));
+        Route::any('password/reset/{data}', array('uses' => 'PasswordController@reset', 'as' => 'resetpassword'));
+
         // Route::any('sites', 'SitesController@index');
     });
 
 // });
+

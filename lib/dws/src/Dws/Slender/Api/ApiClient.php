@@ -52,6 +52,13 @@ class ApiClient {
     }
     
 
+    public function put($path, array $params = array()){
+        $this->request->setMethod(Request::METHOD_PUT);
+        $this->request->setUri($this->getUri($path));
+        $this->request->setContent(json_encode($params));
+        return $this->run();
+    }
+    
     private function run(){
         $response = $this->client->dispatch($this->request);
         if($response->isSuccess()){
