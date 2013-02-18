@@ -57,19 +57,6 @@ class LoginController extends BaseController {
         {
             // Try to log the user in.
             //
-
-            // try {
-            //     $user = $this->api->post("auth", array(
-            //                                         'email' => $email,
-            //                                         'password' => $password
-            //                                     ));
-            // } catch (ApiException $e) {
-            //     return Redirect::to('login')->with('error', implode("<br/>", $e->getMessages()));
-            // }
-
-            // var_dump(Auth::attempt(array('email' => $email, 'password' => $password)));
-            // die;
-            
             if (Auth::attempt(array('email' => $email, 'password' => $password)))
             {
                 // Redirect to the users page.

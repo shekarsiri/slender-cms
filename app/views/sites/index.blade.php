@@ -7,17 +7,21 @@
     <table class="table table-striped table-hover table-bordered">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
-            <th><a href='/sites/create'>Create New</a></th>
+            <th><a href='/sites/create' class="btn btn-mini btn-success">Create New</a></th>
             
         </tr>
         </thead>
         <tbody>
         @foreach ($sites as $id => $site)
         <tr>
-        <td>{{ $site->_id }}</td>
-        <td>{{ $site->name }}</td>
+        <td>{{ $site->title }}</td>
+        <td class="text-center" style='width:100px'>
+            <div class="btn-group">
+              <a href='/sites/{{ $site->_id }}/delete' class="btn btn-mini btn-danger">Delete</a>
+              <a href='/sites/{{ $site->_id }}' class="btn btn-mini btn-primary">Edit</a>
+            </div>
+        </td>
         </tr>
         @endforeach
         </tbody>

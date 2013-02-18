@@ -2,6 +2,7 @@
 
 class SitesController extends BaseController {
 
+    protected $package = 'sites'; 
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -13,14 +14,4 @@ class SitesController extends BaseController {
         return View::make('sites/index')->with('sites', $response->sites);
 	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-        die('new site');
-    }
 }
