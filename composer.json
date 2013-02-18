@@ -2,7 +2,7 @@
 	"require": {
 		"laravel/framework": "4.0.*",
 		"symfony/http-foundation": "2.2.*",
-        "zendframework/zendgdata": "*"
+        "zendframework/zend-http": "*"
 	},
 	"autoload": {
 		"classmap": [
@@ -13,7 +13,12 @@
 		],
 		"psr-0": {
         	"Dws\\Slender\\Api": "lib/dws/src"
-		}
+		},
+        "files": [
+            "lib/dws/src/Dws/Gdata/YoutubeClient.php",
+            "lib/Zend/Loader.php"
+        ]
 	},
+    "include-path": ["lib"],
 	"minimum-stability": "dev"
 }

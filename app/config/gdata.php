@@ -13,9 +13,6 @@ return array(
         'api_name'         => '',
         'youtube_email'    => '',
         'youtube_pass'     => '',
-
-        'auth_url'         => 'https://www.google.com/accounts/ClientLogin',
-        'upload_url'       => 'http://uploads.gdata.youtube.com/feeds/api/users/default/uploads',
     )
 
 );
