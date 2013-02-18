@@ -29,6 +29,7 @@ class ApiClient {
 
     public function setAuth($auth){
         $this->auth = $auth;
+        $this->request->getHeaders()->addHeaders(array('Authentication: ' . $this->auth));
     }
 
     public function setSite($site)
@@ -45,8 +46,7 @@ class ApiClient {
     public function post($path, array $params = array()){
         $this->request->setMethod(Request::METHOD_POST);
         $this->request->setUri($this->getUri($path));
-        $this->request->getPost()->fromArray($params);
-        $this->client->setEncType("multipart/form-data");
+        $this->request->setContent(json_encode($params));
         return $this->run();
     }
 
@@ -66,11 +66,14 @@ class ApiClient {
     
     private function run(){
         $response = $this->client->dispatch($this->request);
+        // var_dump($response->getBody());
+        // die;
         if($response->isSuccess()){
             return json_decode($response->getBody());
         }else{
             $error = json_decode($response->getBody());
             throw new ApiException($error);
+            // var_dump($error);
         }
 
         return $response->isSuccess() ? $response->getBody() : false;
