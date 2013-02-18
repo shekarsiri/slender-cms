@@ -6,6 +6,9 @@ class BaseController extends Controller {
 
 	public $api;
 	protected $package; 
+    protected $displayFields = array(
+                                'title' => 'Title'
+                            );
 
 	public function __construct(){
 		$this->api = App::make('api');
@@ -26,6 +29,21 @@ class BaseController extends Controller {
 			$this->layout = View::make($this->layout);
 		}
 	}
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $response = $this->api->get($this->package);
+        return View::make('base/index')
+                        ->with('package', $this->package)
+                        ->with('displayFields', $this->displayFields)
+                        ->with('data', $response->{$this->package});
+    }
 
 	/**
      * Show the form for creating a new resource.

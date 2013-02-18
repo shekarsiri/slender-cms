@@ -2,19 +2,18 @@
 
 class UsersController extends BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		return View::make('users/index')->with('users', $this->api->get("users")->users);
-	}
+	protected $package = 'users';
+
+    protected $displayFields = array(
+                                'first_name' => 'First Name',
+                                'last_name' => 'Last Name',
+                                'email' => 'Email'
+
+                            );
 
 	public function show($id)
 	{
-        $response = json_decode($this->api->get("users/" . $id));
+        $response = $this->api->get("users/" . $id);
         if (count ($response->users) && is_array($response->users)) {
             $user = $response->users[0];
             return View::make('users/edit')->with('user', $user);

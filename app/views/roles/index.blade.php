@@ -16,7 +16,7 @@
             @foreach ($roles as $id => $role)
             <tr>
                 <td>{{ $role->name }}</td>
-                <td class="text-center" style='width:100px'>
+                <td style='width:100px'>
                     <div class="btn-group">
                       <a href='/roles/{{ $role->_id }}/delete' class="btn btn-mini btn-danger">Delete</a>
                       <a href='/roles/{{ $role->_id }}' class="btn btn-mini btn-primary">Edit</a>

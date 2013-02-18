@@ -3,17 +3,9 @@
 class RolesController extends BaseController {
 
 	protected $package = 'roles'; 
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        $response = $this->api->get("roles");
-        return View::make('roles/index')->with('roles', $response->roles);
-	}
+    protected $displayFields = array(
+                                'name' => 'Name'
+                            );
 
    /**
      * Display the specified resource.

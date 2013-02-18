@@ -19,11 +19,113 @@
             </div>
         </div>
         @else
-            Missing nested fields display
+            <!-- Missing nested fields display -->
         @endif
 
     @endforeach
+        <div class="control-group">
+            <label class="control-label">Permissions</label>
 
+            <div class="controls span5">
+                <table class="table table-bordered table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Global</th>
+                      <th>Read</th>
+                      <th>Write</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="info">
+                        <td>Sites</td>
+                        <td>
+                            <label class="checkbox inline">
+                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                            </label>
+                        </td>
+                        <td>
+                            <label class="checkbox inline">
+                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                            </label>
+                        </td>
+                        <td>
+                            <label class="checkbox inline">
+                              <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>Roles</td>
+                        <td>
+                            <label class="checkbox inline">
+                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                            </label>
+                        </td>
+                        <td>
+                            <label class="checkbox inline">
+                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                            </label>
+                        </td>
+                        <td>
+                            <label class="checkbox inline">
+                              <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>Users</td>
+                        <td>
+                            <label class="checkbox inline">
+                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                            </label>
+                        </td>
+                        <td>
+                            <label class="checkbox inline">
+                                <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                            </label>
+                        </td>
+                        <td>
+                            <label class="checkbox inline">
+                              <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                            </label>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                          <th>Site A</th>
+                          <th>Read</th>
+                          <th>Write</th>
+                          <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Videos</td>
+                            <td>
+                                <label class="checkbox inline">
+                                    <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox inline">
+                                    <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox inline">
+                                  <input type="checkbox" onclick="$('input.access_view').prop('checked', $(this).prop('checked'));">
+                                </label>
+                            </td>
+                        </tr>
+                    
+                  </tbody>
+                                    
+                </table>
+            </div>
+        </div>   
+        
     <!-- Create button -->
     <div class="control-group">
         <div class="controls">
