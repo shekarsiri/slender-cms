@@ -32,7 +32,7 @@ class ApiClient {
     }
 
     public function get($path){
-        $this->request->setMethod('GET');
+        $this->request->setMethod(Request::METHOD_GET);
         $this->request->setUri($this->getUri($path));
         return $this->run();
     }
@@ -41,9 +41,16 @@ class ApiClient {
         $this->request->setMethod(Request::METHOD_POST);
         $this->request->setUri($this->getUri($path));
         $this->request->getPost()->fromArray($params);
-        $this->client->setEncType("multipart/form-data");   
+        $this->client->setEncType("multipart/form-data");
         return $this->run();
     }
+
+    public function options($path){
+        $this->request->setMethod(Request::METHOD_OPTIONS);
+        $this->request->setUri($this->getUri($path));
+        return $this->run();
+    }
+    
 
     private function run(){
         $response = $this->client->dispatch($this->request);
