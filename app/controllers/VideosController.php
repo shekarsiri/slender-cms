@@ -5,11 +5,10 @@ class VideosController extends BaseController {
 	protected $package = 'videos';
 
     protected $displayFields = array(
-                                'title' => 'Title',
-                                'season' => 'Season',
-                                'episode_number' => 'Episode'
-
-                            );
+        'title' => 'Title',
+        'season' => 'Season',
+        'episode_number' => 'Episode'
+    );
 
     public function __construct(){
         parent::__construct();
@@ -33,10 +32,10 @@ class VideosController extends BaseController {
             $options = $options->PUT;
 
             return View::make('videos/edit')
-                        ->with('data', $response)
-                        ->with('package', $this->package)
-                        ->with('method', $method)
-                        ->with('options', $options);
+                ->with('data', $response)
+                ->with('package', $this->package)
+                ->with('method', $method)
+                ->with('options', $options);
         }
     }
 
