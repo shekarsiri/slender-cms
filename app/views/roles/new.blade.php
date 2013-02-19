@@ -2,17 +2,15 @@
 
 {{-- Content --}}
 @section('content')
-<h2>Edit {{ ucfirst(str_singular($package)) }}</h2>
-<form method="{{ $method }}" action="" class="form-horizontal">
-    <input type="hidden" name="_method" value="PUT">
-
+<h2>New {{ ucfirst(str_singular($package)) }}</h2>
+<form method="{{ $method }}" action="/{{ $package }}" class="form-horizontal">
     @foreach ($options->fields as $field => $option)
         {{-- var_dump($option) --}}
         @if(is_array($option))
         <div class="control-group {{ $errors->has($field) ? 'error' : '' }}">
             <label class="control-label" for="{{ $field }}">{{ $field }}</label>
             <div class="controls">
-                <input type="text" name="{{ $field }}" id="{{ $field }}" value="{{ Input::old($field, $data->$field) }}" />
+                <input type="text" name="{{ $field }}" id="{{ $field }}" value="{{ Input::old($field) }}" />
                 {{{ $errors->first($field) }}}
             </div>
         </div>
@@ -40,17 +38,17 @@
                         <td>Sites</td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" value="1" name="permissions[global][sites][read]" {{ (isset($data->permissions->global->sites->read) && $data->permissions->global->sites->read) ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" name="permissions[global][sites][read]" />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" value="1" name="permissions[global][sites][write]" {{ (isset($data->permissions->global->sites->write) && $data->permissions->global->sites->write) ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" name="permissions[global][sites][write]" />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" value="1" name="permissions[global][sites][delete]" {{ (isset($data->permissions->global->sites->delete) && $data->permissions->global->sites->delete) ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" name="permissions[global][sites][delete]" />
                             </label>
                         </td>
                     </tr>
@@ -58,17 +56,17 @@
                         <td>Roles</td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" value="1" name="permissions[global][roles][read]" {{ (isset($data->permissions->global->roles->read) && $data->permissions->global->roles->read) ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" name="permissions[global][roles][read]" />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" value="1" name="permissions[global][roles][write]" {{ (isset($data->permissions->global->roles->write) && $data->permissions->global->roles->write) ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" name="permissions[global][roles][write]" />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" value="1" name="permissions[global][roles][delete]" {{ (isset($data->permissions->global->roles->delete) && $data->permissions->global->roles->delete) ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" name="permissions[global][roles][delete]" />
                             </label>
                         </td>
                     </tr>
@@ -76,17 +74,17 @@
                         <td>Users</td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" value="1" name="permissions[global][users][read]" {{ (isset($data->permissions->global->users->read) && $data->permissions->global->users->read) ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" name="permissions[global][users][read]" />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" value="1" name="permissions[global][users][write]" {{ (isset($data->permissions->global->users->write) && $data->permissions->global->users->write) ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" name="permissions[global][users][write]" />
                             </label>
                         </td>
                         <td>
                             <label class="checkbox inline">
-                                <input type="checkbox" value="1" name="permissions[global][users][delete]" {{ (isset($data->permissions->global->users->delete) && $data->permissions->global->users->delete) ? 'checked' : '' }} />
+                                <input type="checkbox" value="1" name="permissions[global][users][delete]"  />
                             </label>
                         </td>
                     </tr>
@@ -106,17 +104,17 @@
                             <td>Sites</td>
                             <td>
                                 <label class="checkbox inline">
-                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][sites][read]" {{ (isset($data->permissions->{$site->slug}->sites->read) && $data->permissions->{$site->slug}->sites->read) ? 'checked' : '' }} />
+                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][sites][read]" />
                                 </label>
                             </td>
                             <td>
                                 <label class="checkbox inline">
-                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][sites][write]" {{ (isset($data->permissions->{$site->slug}->sites->write) && $data->permissions->{$site->slug}->sites->write) ? 'checked' : '' }} />
+                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][sites][write]" />
                                 </label>
                             </td>
                             <td>
                                 <label class="checkbox inline">
-                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][sites][delete]" {{ (isset($data->permissions->{$site->slug}->sites->delete) && $data->permissions->{$site->slug}->sites->delete) ? 'checked' : '' }} />
+                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][sites][delete]" />
                                 </label>
                             </td>
                         </tr>
@@ -124,17 +122,17 @@
                             <td>Roles</td>
                             <td>
                                 <label class="checkbox inline">
-                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][roles][read]" {{ (isset($data->permissions->{$site->slug}->roles->read) && $data->permissions->{$site->slug}->roles->read) ? 'checked' : '' }} />
+                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][roles][read]" />
                                 </label>
                             </td>
                             <td>
                                 <label class="checkbox inline">
-                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][roles][write]" {{ (isset($data->permissions->{$site->slug}->roles->write) && $data->permissions->{$site->slug}->roles->write) ? 'checked' : '' }} />
+                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][roles][write]"  />
                                 </label>
                             </td>
                             <td>
                                 <label class="checkbox inline">
-                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][roles][delete]" {{ (isset($data->permissions->{$site->slug}->roles->delete) && $data->permissions->{$site->slug}->roles->delete) ? 'checked' : '' }} />
+                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][roles][delete]" />
                                 </label>
                             </td>
                         </tr>
@@ -142,17 +140,17 @@
                             <td>Users</td>
                             <td>
                                 <label class="checkbox inline">
-                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][users][read]" {{ (isset($data->permissions->{$site->slug}->users->read) && $data->permissions->{$site->slug}->users->read) ? 'checked' : '' }} />
+                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][users][read]" />
                                 </label>
                             </td>
                             <td>
                                 <label class="checkbox inline">
-                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][users][write]" {{ (isset($data->permissions->{$site->slug}->users->write) && $data->permissions->{$site->slug}->users->write) ? 'checked' : '' }} />
+                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][users][write]" />
                                 </label>
                             </td>
                             <td>
                                 <label class="checkbox inline">
-                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][users][delete]" {{ (isset($data->permissions->{$site->slug}->users->delete) && $data->permissions->{$site->slug}->users->delete) ? 'checked' : '' }} />
+                                    <input type="checkbox" value="1" name="permissions[{{ $site->slug }}][users][delete]" />
                                 </label>
                             </td>
                         </tr>
@@ -167,7 +165,7 @@
     <!-- Create button -->
     <div class="control-group">
         <div class="controls">
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">Save</button>
             <button type="button" onclick="document.location='/{{ $package }}'" class="btn">Cancel</button>
         </div>
     </div>

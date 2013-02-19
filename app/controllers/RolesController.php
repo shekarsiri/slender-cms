@@ -34,4 +34,26 @@ class RolesController extends BaseController {
         }
     }
 
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $options = $this->api->options($this->package);
+        $method = 'POST';
+        $options = $options->PUT;
+
+        // get sites for options
+        $sites = $this->api->get('sites');
+
+        return View::make('roles/new')
+                    ->with('sites', $sites->sites)
+                    ->with('package', $this->package)
+                    ->with('method', $method)
+                    ->with('options', $options);
+    }
+
 }
