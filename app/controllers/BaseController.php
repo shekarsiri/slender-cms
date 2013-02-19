@@ -88,7 +88,8 @@ class BaseController extends Controller {
                 }
             }
             return Redirect::to($this->package."/create")->withErrors($errors);
-        }
+        }    
+        return Redirect::to($this->package)->with('success', 'The data successfully saved!');;    
     }
 
     /**
@@ -121,6 +122,10 @@ class BaseController extends Controller {
     {
         $data = Input::all();
         
+        if(isset($data['_method'])){
+            unset($data['_method']);
+        }
+
         try {
             $response = $this->api->put($this->package."/".$id, $data);
         } catch (ApiException $e) {

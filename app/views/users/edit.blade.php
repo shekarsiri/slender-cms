@@ -1,65 +1,59 @@
 @extends('layouts.default')
 
-{{-- Content --}}
+
 @section('content')
-<form method="post" action="/users/{{  $user->_id }}" class="form-horizontal">
-    <!-- First Name -->
-    <div class="control-group {{ $errors->has('first_name') ? 'error' : '' }}">
-        <label class="control-label" for="first_name">First Name</label>
-        <div class="controls">
-            <input type="text" name="first_name" id="first_name" value="{{  Input::old('first_name', $user->first_name) }}" />
-            {{ $errors->first('first_name') }}
-        </div>
-    </div>
-    <!-- ./ first name -->
+<h2>Edit {{ ucfirst(str_singular($package)) }}</h2>
 
-    <!-- Last Name -->
-    <div class="control-group {{ $errors->has('last_name') ? 'error' : '' }}">
-        <label class="control-label" for="last_name">Last Name</label>
-        <div class="controls">
-            <input type="text" name="last_name" id="last_name" value="{{ Input::old('last_name', $user->last_name) }}" />
-            {{ $errors->first('last_name') }}
-        </div>
-    </div>
-    <!-- ./ last name -->
+<form method="{{ $method }}" action="" class="form-horizontal">
+    <input type="hidden" name="_method" value="PUT">
+    @foreach ($options->fields as $field => $option)
+        @if(is_array($option) && is_string($field) && is_string($user->$field) &&  $field!='password' )
+            <div class="control-group {{ $errors->has($field) ? 'error' : '' }}">
+                <label class="control-label" for="{{ $field }}">{{ $field }}</label>
+                <div class="controls">
+                    <input type="text" name="{{ $field }}" id="{{ $field }}" value="{{ Input::old($field, $user->$field) }}" />
+                    {{{ $errors->first($field) }}}
+                </div>
+            </div>
+        @else
 
-    <!-- Email -->
-    <div class="control-group {{ $errors->has('email') ? 'error' : '' }}">
-        <label class="control-label" for="email">Email</label>
-        <div class="controls">
-            <input type="text" name="email" id="email" value="{{ Input::old('email', $user->email) }}" />
-            {{ $errors->first('email') }}
-        </div>
-    </div>
-    <!-- ./ email -->
+        @endif
+    @endforeach
+            <div class="control-group {{ $errors->has('password') ? 'error' : '' }}">
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                    <input type="password" name="password" id="password" value=""  />
+                    {{{ $errors->first('password') }}}
+                </div>
+            </div>
+            <div class="control-group {{ $errors->has('password_confirmation') ? 'error' : '' }}">
+                <label class="control-label" for="password_confirmation">Re-enter Password</label>
+                <div class="controls">
+                    <input type="password" name="password_confirmation" id="password_confirmation" value=""  />
+                    {{{ $errors->first('password_confirmation') }}}
+                </div>
+            </div>
+            <div class="control-group {{ $errors->has('roles') ? 'error' : '' }}">
+                <label class="control-label" for="roles">Roles</label>
+                <div class="controls">
+                    <select name='roles[]' multiple="multiple">
+                        @foreach($roles as $role)
+                            <option value="{{ $role->_id }}" {{ in_array($role->_id, $user->roles) ? 'selected' : '' }} >{{ $role->name }}</option>
+                        @endforeach
+                    </select>
 
-    <!-- Password -->
-    <div class="control-group {{ $errors->has('password') ? 'error' : '' }}">
-        <label class="control-label" for="password">Password</label>
-        <div class="controls">
-            <input type="password" name="password" id="password" value="" />
-            {{ $errors->first('password') }}
-        </div>
-    </div>
-    <!-- ./ password -->
+                    {{{ $errors->first('roles') }}}
+                </div>
+            </div>
+            
 
-    <!-- Password Confirm -->
-    <div class="control-group {{ $errors->has('password_confirmation') ? 'error' : '' }}">
-        <label class="control-label" for="password_confirmation">Password Confirm</label>
-        <div class="controls">
-            <input type="password" name="password_confirmation" id="password_confirmation" value="" />
-            {{ $errors->first('password_confirmation') }}
-        </div>
-    </div>
-    <!-- ./ password confirm -->
-
-    <!-- Update button -->
+    <!-- Create button -->
     <div class="control-group">
         <div class="controls">
-            <button type="submit" class="btn btn-primary">Update</button>
-            <button type="button" onclick="document.location='/user'" class="btn">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" onclick="document.location='/{{ $package }}'" class="btn">Cancel</button>
         </div>
     </div>
-    <!-- ./ update button -->
+    <!-- ./ Create button -->
 </form>
 @stop
