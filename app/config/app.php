@@ -81,6 +81,7 @@ return array(
 	'providers' => array(
 		'Dws\Slender\Api\ApiServiceProvider',
 		'Dws\Slender\Api\Auth\ApiAuthServiceProvider',
+        'Dws\SlenderCMS\SlenderCMSServiceProvider',
 
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		// 'Illuminate\Auth\AuthServiceProvider',
