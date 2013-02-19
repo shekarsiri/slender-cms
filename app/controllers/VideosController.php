@@ -15,6 +15,8 @@ class VideosController extends BaseController {
         parent::__construct();
 
         $this->api->setSite('ai');
+
+        //echo "<pre>"; print_r(Auth::user()->permissions); die();
     }
 
     /**
@@ -25,13 +27,13 @@ class VideosController extends BaseController {
     public function show($id)
     {
         $response = $this->api->get($this->package."/".$id);
-
         if($response = $response->{$this->package}[0]){
             $options = $this->api->options($this->package);
             $method = 'POST';
             $options = $options->PUT;
 
             return View::make('videos/edit')
+                        ->with('data', $response)
                         ->with('package', $this->package)
                         ->with('method', $method)
                         ->with('options', $options);
@@ -67,20 +69,44 @@ class VideosController extends BaseController {
      */
     public function store()
     {
-        $data = Input::all();
-        try {
-            $response = $this->api->post($this->package, $data);
-        } catch (ApiException $e) {
-            $errors = new MessageBag;
-            $messages = $e->getMessages();
-            foreach ($messages[0] as $key => $value) {
-                foreach ($value as $msg) {
-                    $errors->add($key, $msg);
-                }
-            }
-            return Redirect::to($this->package."/create")->withErrors($errors);
+        // Declare the rules for the form validation.
+        //
+        $rules = array(
+            'title'                 => 'Required',
+            'description'           => 'Required',
+            'slug'                  => 'Required',
+            'premiere_date'         => 'Date',
+            'rating' 	            => 'Integer',
+            'genre' 	            => 'Required',
+            'episode_number'        => 'Integer',
+            'season' 	            => 'Required',
+            'urls[source]'          => 'URL',
+            'urls[streaming]'       => 'URL',
+            'urls[thumbnail]'       => 'URL',
+            'availability[sunrise]' => 'Date',
+            'availability[sunset]'  => 'Date',
+            'created' 	            => 'Date',
+            'updated' 	            => 'Date',
+        );
+
+        // Get all the inputs.
+        //
+        $inputs = Input::all();
+
+        // Validate the inputs.
+        //
+        $validator = Validator::make($inputs, $rules);
+
+        // Check if the form validates with success.
+        //
+        if ($validator->fails())
+        {
+            // Something went wrong.
+            //
+            return Redirect::to($this->package."/create")->withErrors($validator->messages());
         }
-        return Redirect::to($this->package)->with('success', 'The data successfully saved!');;
+
+        parent::store();
     }
 
     /**
@@ -92,7 +118,23 @@ class VideosController extends BaseController {
     {
         // Declare the rules for the form validation.
         //
-        $rules = array();
+        $rules = array(
+            'title'                 => 'Required',
+            'description'           => 'Required',
+            'slug'                  => 'Required',
+            'premiere_date'         => 'Date',
+            'rating' 	            => 'Integer',
+            'genre' 	            => 'Required',
+            'episode_number'        => 'Integer',
+            'season' 	            => 'Required',
+            'urls[source]'          => 'URL',
+            'urls[streaming]'       => 'URL',
+            'urls[thumbnail]'       => 'URL',
+            'availability[sunrise]' => 'Date',
+            'availability[sunset]'  => 'Date',
+            'created' 	            => 'Date',
+            'updated' 	            => 'Date',
+        );
 
         // Get all the inputs.
         //
@@ -113,12 +155,5 @@ class VideosController extends BaseController {
 
         return parent::update($id);
     }
-
-
-	public function destroy($id)
-	{
-        $response = $this->api->delete($this->package."/".$id);
-        return Redirect::to($this->package);
-	}
 
 }

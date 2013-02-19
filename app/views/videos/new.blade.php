@@ -1,5 +1,36 @@
 @extends('layouts.default')
 
+@section('css')
+<!-- jQuery tag plugin -->
+<link href="{{ asset('assets/css/bootstrap-tagmanager.css') }}" rel="stylesheet">
+
+<!-- jQuery datetime plugin -->
+<link href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+
+<!-- fineuploader plugin -->
+<link href="{{ asset('assets/css/fineuploader.css') }}" rel="stylesheet">
+<style>
+        /* Fine Uploader
+       -------------------------------------------------- */
+    .qq-upload-list {
+        text-align: left;
+    }
+
+        /* For the bootstrapped demos */
+    li.alert-success {
+        background-color: #DFF0D8;
+    }
+
+    li.alert-error {
+        background-color: #F2DEDE;
+    }
+
+    .alert-error .qq-upload-failed-text {
+        display: inline;
+    }
+</style>
+@stop
+
 @section('js')
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap-tagmanager.js') }}"></script>
@@ -7,9 +38,7 @@
 
 <script type="text/javascript">
     $(function(){
-        alert('asd');
-        //$('#sunrise').DateTimePicker();
-
+        $('.datepicker').datetimepicker();
 
         $('#genre').typeahead({
             source: [
@@ -100,11 +129,14 @@
                 <div class="control-group {{ $errors->has($subfield) ? 'error' : '' }}">
                     <label class="control-label" for="{{ $subfield }}">{{ $field }} {{$subfield}}</label>
                     <div class="controls">
-                        <input type="text"
-                        @if($suboption->type == 'DateTime')
-                            class="datepicker"
+                        @if($suboption->type == 'Date')
+                        <div iclass="input-append date datepicker">
+                            <input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="{{$field}}[{{ $subfield }}]" id="{{ $subfield }}" value="" />
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
+                        @else
+                        <input type="text" name="{{$field}}[{{ $subfield }}]" id="{{ $subfield }}" value="" />
                         @endif
-                               name="{{$field}}_{{ $subfield }}" id="{{ $subfield }}" value="" />
                         {{{ $errors->first($field) }}}
                     </div>
                 </div>
@@ -113,11 +145,16 @@
             <div class="control-group {{ $errors->has($field) ? 'error' : '' }}">
                 <label class="control-label" for="{{ $field }}">{{ $field }}</label>
                 <div class="controls">
-                    <input type="text"
-                    @if($option->type == 'DateTime')
-                    class="datepicker"
+
+                    @if($option->type == 'Date')
+                        <div iclass="input-append date datepicker">
+                            <input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="{{ $field }}" id="{{ $field }}" value="" />
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
+                    @else
+                        <input type="text" name="{{ $field }}" id="{{ $field }}" value="" />
                     @endif
-                           name="{{ $field }}" id="{{ $field }}" value="" />
+
                     {{{ $errors->first($field) }}}
                 </div>
             </div>
