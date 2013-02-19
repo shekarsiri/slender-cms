@@ -130,7 +130,7 @@
                     <label class="control-label" for="{{ $subfield }}">{{ $field }} {{$subfield}}</label>
                     <div class="controls">
                         @if($suboption->type == 'Date')
-                        <div iclass="input-append date datepicker">
+                        <div class="input-append date datepicker">
                             <input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="{{$field}}[{{ $subfield }}]" id="{{ $subfield }}" value="" />
                             <span class="add-on"><i class="icon-calendar"></i></span>
                         </div>
@@ -147,7 +147,7 @@
                 <div class="controls">
 
                     @if($option->type == 'Date')
-                        <div iclass="input-append date datepicker">
+                        <div class="input-append date datepicker">
                             <input type="text" data-format="MM/dd/yyyy hh:mm:ss" name="{{ $field }}" id="{{ $field }}" value="" />
                             <span class="add-on"><i class="icon-calendar"></i></span>
                         </div>
