@@ -2,7 +2,7 @@
 
 
 @section('content')
-<h2>{{ ucfirst($package) }}</h2>
+<h2>Edit {{ ucfirst(str_singular($package)) }}</h2>
 
 <form method="{{ $method }}" action="" class="form-horizontal">
     <input type="hidden" name="_method" value="PUT">

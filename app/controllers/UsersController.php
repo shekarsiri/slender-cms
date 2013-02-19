@@ -11,39 +11,59 @@ class UsersController extends BaseController {
 
                             );
 
-	public function show($id)
-	{
-        $response = $this->api->get("users/" . $id);
-        if (count ($response->users) && is_array($response->users)) {
-            $user = $response->users[0];
-            return View::make('users/edit')->with('user', $user);
-        }
-        else {
-            return Redirect::to('users')->withErrors(array('User not found'));
-        }
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        $response = $this->api->get($this->package."/".$id);
 
-	public function update($id)
-	{
-        $rules = array(
-            'first_name' => 'Required',
-            'last_name'  => 'Required',
-            'email'      => 'Required|Email',
-        );
+        if($response = $response->{$this->package}[0]){
+            $options = $this->api->options($this->package);
+            $method = 'POST';
+            $options = $options->PUT;
 
-        // If we are updating the password.
+            $roles = $this->api->get("roles");
+
+            return View::make('users/edit')
+                        ->with('roles', $roles->roles)
+                        ->with('user', $response)
+                        ->with('package', $this->package)
+                        ->with('method', $method)
+                        ->with('options', $options);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return Response
+     */
+    public function update($id)
+    {
+        // Declare the rules for the form validation.
         //
-        if (Input::get('password'))
-        {
-            // Update the validation rules.
-            //
-            $rules['password']              = 'Required|Confirmed';
-            $rules['password_confirmation'] = 'Required';
-        }
+        $rules = array();
 
         // Get all the inputs.
         //
         $inputs = Input::all();
+
+        // If we are updating the password.
+        //
+        if(Input::get('password')){
+            // Update the validation rules.
+            //
+            $rules['password']              = 'Required|Confirmed';
+            $rules['password_confirmation'] = 'Required';
+        }else{
+            // unset password fields once we are not updateing it
+            //
+            $input = Input::except(array('password', 'password_confirmation'));
+            Input::replace($input);           
+        }
 
         // Validate the inputs.
         //
@@ -51,30 +71,20 @@ class UsersController extends BaseController {
 
         // Check if the form validates with success.
         //
-        if ($validator->passes())
+        if ($validator->fails())
         {
-            // Create the user.
+            // Something went wrong.
             //
-            //$response = json_decode($this->api->put("users/" . $id));
-            /*
-            Input::get('first_name');
-            Input::get('last_name');
-            Input::get('email');
-            Input::get('password')
-            */
-
-            // Redirect to the register page.
-            //
-            return Redirect::to('users')->with('success', 'Account updated with success!');
+            return Redirect::to($this->package."/".$id)->withErrors($validator->messages());
         }
 
-        // Something went wrong.
-        return Redirect::to('users/'.$id)->withInput()->withErrors($validator);
-	}
+        return parent::update($id);
+    }
+
 
 	public function destroy($id)
 	{
-        $response = json_decode($this->api->delete("users/" . $id));
+        $response = $this->api->delete("users/" . $id);
         return Redirect::to('users');
 	}
 
