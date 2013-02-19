@@ -31,7 +31,7 @@ class PasswordController extends BaseController {
         } else {
 
             $email = Input::get('email');
-            $response = $this->api->get("users?where[]=email:{$email}");
+            $response = $this->api->getUsers("?where[]=email:{$email}");
             
             if ($response->meta->count === 0) {
                 $this->messageBag->add('email', "the provided email does not exist");    
@@ -39,7 +39,7 @@ class PasswordController extends BaseController {
             }
 
             $userId = $response->users[0]->_id;
-            $data = array('link' => Crypt::encrypt($userId));
+            $data = array('link' => URL::route('resetpassword', array('data' => Crypt::encrypt($userId))));
 
             /*
             Mail::send('emails.auth.reminder', $data, function($m)
@@ -64,7 +64,7 @@ class PasswordController extends BaseController {
 
         if (Request::getMethod() == 'POST') {
             $userId = Crypt::decrypt($data);
-            $response = $this->api->put("users/{$userId}", array('password' => Input::get('password1')));
+            $response = $this->api->putUsers($userId, array('password' => Input::get('password1')));
             return Redirect::to('login')->with('success', "Your password has been updated successfully!"); 
         }
 
