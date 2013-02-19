@@ -17,6 +17,7 @@
         Route::resource('sites', 'SitesController');
         Route::resource('users', 'UsersController');
         Route::resource('roles', 'RolesController');
+        Route::resource('videos', 'VideosController');
         
 
         //Route::get('password/forgot', array('uses' => 'PasswordController@forgot', 'as' => 'forgotpassword'));

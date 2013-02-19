@@ -47,7 +47,7 @@
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
-          <script src="/assets/js/html5shiv.js"></script>
+          <script type="text/javascript" src="/assets/js/html5shiv.js"></script>
         <![endif]-->
 
         <!-- Fav and touch icons -->
@@ -56,6 +56,8 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="/assets/ico/apple-touch-icon-57-precomposed.png">
         <link rel="shortcut icon" href="/assets/ico/favicon.png">
+
+        <script type="text/javascript" src="/assets/js/jquery.v1.8.3.min.js"></script>
     </head>
 
     <body>
@@ -82,6 +84,7 @@
                   <li><a href="/sites">Sites</a></li>
                   <li><a href="/roles">Roles</a></li>
                   <li><a href="/users">Users</a></li>
+                  <li><a href="/videos">Videos</a></li>
                   <li><a href="#about">About</a></li>
                   <li><a href="#contact">Contact</a></li>
                 </ul>
