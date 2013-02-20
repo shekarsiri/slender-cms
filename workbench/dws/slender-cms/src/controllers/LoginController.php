@@ -15,6 +15,8 @@ class LoginController extends BaseController {
 	 */
 	public function index()
 	{
+                
+
         return View::make('slender-cms::login.login');
 	}
 
@@ -61,20 +63,20 @@ class LoginController extends BaseController {
             {
                 // Redirect to the users page.
                 //
-                return Redirect::to('/')->with('success', 'You have logged in successfully');
+                return Redirect::to($this->base_url.'/')->with('success', 'You have logged in successfully');
             }
             else
             {
                 // Redirect to the login page.
                 //
-                return Redirect::to('login')->with('error', 'Email/password invalid.');
+                return Redirect::to($this->base_url.'/login')->with('error', 'Email/password invalid.');
             }
         }
 
         // Something went wrong.
         //
 
-        return Redirect::to('login')->withErrors($validator->messages());
+        return Redirect::to($this->base_url.'/login')->withErrors($validator->messages());
 	}
 
 	/**
@@ -84,16 +86,7 @@ class LoginController extends BaseController {
 	 */
 	public function show($id)
 	{
-        if($id=='logout'){ // fuck! This should be fixed
-            // Log the user out.
-            //
-            Auth::logout();
-
-            // Redirect to the users page.
-            //
-            return Redirect::to('login')->with('success', 'Logged out with success!');
-        }
-		
+        //
 	}
 
 	/**
@@ -126,4 +119,18 @@ class LoginController extends BaseController {
 		//
 	}
 
+    /**
+     * Logout.
+     *
+     * @return Response
+     */
+    public function logout()
+    {
+
+        Auth::logout();
+
+        // Redirect to the login page.
+        //
+        return Redirect::to($this->base_url.'/login')->with('success', 'Logged out with success!');
+    }
 }

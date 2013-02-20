@@ -9,8 +9,7 @@ class HomeController extends BaseController {
 	 */
 	public function index()
 	{
-		// var_dump($this->api->options("users")->PUT);
-		return View::make('home');
+		return View::make('slender-cms::home');
 	}
 
 	/**

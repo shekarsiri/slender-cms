@@ -25,7 +25,7 @@ class RolesController extends BaseController {
             // get sites for options
             $sites = $this->api->get('sites');
 
-            return View::make('roles/edit')
+            return View::make('slender-cms::roles/edit')
                         ->with('data', $response)
                         ->with('sites', $sites->sites)
                         ->with('package', $this->package)
@@ -49,7 +49,7 @@ class RolesController extends BaseController {
         // get sites for options
         $sites = $this->api->get('sites');
 
-        return View::make('roles/new')
+        return View::make('slender-cms::roles/new')
                     ->with('sites', $sites->sites)
                     ->with('package', $this->package)
                     ->with('method', $method)

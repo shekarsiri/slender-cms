@@ -1,6 +1,8 @@
 @extends('slender-cms::layouts.single')
 
 @section('content')
+
+
 <form method="post" action="" class="form-horizontal form-signin">
   <h2 class="form-signin-heading">Please sign in</h2>
   <!-- CSRF Token -->

@@ -19,6 +19,9 @@ class SlenderCMSServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('dws/slender-cms');
+
+		include __DIR__.'/routes.php';
+
 	}
 
 	/**
@@ -28,7 +31,7 @@ class SlenderCMSServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+
 	}
 
 	/**
@@ -38,7 +41,7 @@ class SlenderCMSServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('slender-cms');
 	}
 
 }

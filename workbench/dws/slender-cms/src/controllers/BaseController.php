@@ -6,16 +6,18 @@ class BaseController extends Controller {
 
 	public $api;
 	protected $package; 
+    protected $base_url;
     protected $displayFields = array(
                                 'title' => 'Title'
                             );
-
 	public function __construct(){
 		$this->api = App::make('api');
 
 		if(Auth::check()){
 			$this->api->setAuth(Auth::user()->key);
 		}
+
+        $this->base_url = Config::get('slender-cms::cms.admin-url');
 	}
 	/**
 	 * Setup the layout used by the controller.
@@ -24,8 +26,8 @@ class BaseController extends Controller {
 	 */
 	protected function setupLayout()
 	{
-		if ( ! is_null($this->layout))
-		{
+        if ( ! is_null($this->layout))
+        {
 			$this->layout = View::make($this->layout);
 		}
 	}
@@ -39,7 +41,7 @@ class BaseController extends Controller {
     public function index()
     {
         $response = $this->api->get($this->package);
-        return View::make('base/index')
+        return View::make('slender-cms::base/index')
                         ->with('package', $this->package)
                         ->with('displayFields', $this->displayFields)
                         ->with('data', $response->{$this->package});
@@ -62,7 +64,7 @@ class BaseController extends Controller {
         	$options = $options->POST;
         }
 
-        return View::make('base/new')
+        return View::make('slender-cms::base/new')
         				->with('package', $this->package)
         				->with('method', $method)
         				->with('options', $options);
@@ -87,9 +89,9 @@ class BaseController extends Controller {
                     $errors->add($key, $msg);
                 }
             }
-            return Redirect::to($this->package."/create")->withErrors($errors);
+            return Redirect::to("{$this->base_url}/{$this->package}/create")->withErrors($errors);
         }    
-        return Redirect::to($this->package)->with('success', 'The data successfully saved!');;    
+        return Redirect::to("{$this->base_url}/{$this->package}")->with('success', 'The data successfully saved!');;    
     }
 
     /**
@@ -105,7 +107,7 @@ class BaseController extends Controller {
             $options = $this->api->options($this->package);
             $method = 'POST';
             $options = $options->PUT;
-            return View::make('base/edit')
+            return View::make('slender-cms::base/edit')
                         ->with('data', $response)
                         ->with('package', $this->package)
                         ->with('method', $method)
@@ -136,10 +138,10 @@ class BaseController extends Controller {
                     $errors->add($key, $msg);
                 }
             }
-            return Redirect::to($this->package."/".$id)->withErrors($errors);
+            return Redirect::to("{$this->base_url}/{$this->package}/".$id)->withErrors($errors);
         }
         
-        return Redirect::to($this->package)->with('success', 'The data successfully saved!');;
+        return Redirect::to("{$this->base_url}/{$this->package}")->with('success', 'The data successfully saved!');;
     }
 
 }
