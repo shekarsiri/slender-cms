@@ -79,8 +79,11 @@ return array(
 	*/
 
 	'providers' => array(
-		'Dws\Slender\Api\ApiServiceProvider',
-		'Dws\Slender\Api\Auth\ApiAuthServiceProvider',
+		// 'Dws\Slender\Api\ApiServiceProvider',
+		// 'Dws\Slender\Api\Auth\ApiAuthServiceProvider',
+		'Dws\SlenderCMS\ApiServiceProvider',
+		'Dws\SlenderCMS\Auth\ApiAuthServiceProvider',
+
         'Dws\SlenderCMS\SlenderCMSServiceProvider',
 
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
@@ -140,6 +143,7 @@ return array(
 	*/
 
 	'aliases' => array(
+		// 'ApiAuth'            => 'Dws\SlenderCMS\Auth\ApiAuth',
 
 		'App'             => 'Illuminate\Support\Facades\App',
 		'Artisan'         => 'Illuminate\Support\Facades\Artisan',
