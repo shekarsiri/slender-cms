@@ -6,6 +6,8 @@ class YoutubeClient {
     protected $apiKey = null;
     protected $apiName = null;
     protected $videoId = null;
+    protected $videoUrl = null;
+    protected $videoThumb = null;
 
     protected $client;
 
@@ -33,19 +35,19 @@ class YoutubeClient {
      *
      * @param array $videoData
      * Example
-        $videoData = array(
-            //path to file
-            'source' => __DIR__. '/' . 'test.avi',
-            'mime' => 'video/x-msvideo',
-            'slug' => 'test.avi',
-            'title' => 'Title',
-            'description' => 'Testing youtube api',
-            //must be valid youtube video category
-            'category' => 'Autos',
-            // Please note that this must be a comma-separated string
-            // and that individual keywords cannot contain whitespace
-            'tags' => 'cars, funny'
-        );
+    $videoData = array(
+    //path to file
+    'source' => __DIR__. '/' . 'test.avi',
+    'mime' => 'video/x-msvideo',
+    'slug' => 'test.avi',
+    'title' => 'Title',
+    'description' => 'Testing youtube api',
+    //must be valid youtube video category
+    'category' => 'Autos',
+    // Please note that this must be a comma-separated string
+    // and that individual keywords cannot contain whitespace
+    'tags' => 'cars, funny'
+    );
      * @return false|string response url
      */
     public function insertVideo($videoData)
@@ -69,17 +71,26 @@ class YoutubeClient {
         $myVideoEntry->setVideoDescription($videoData['description']);
         $myVideoEntry->setVideoCategory($videoData['category']);
         $myVideoEntry->SetVideoTags($videoData['tags']);
-        if (is_array($videoData['developer_tags']) && count($videoData['developer_tags']))
-            $myVideoEntry->setVideoDeveloperTags($videoData['developer_tags']);
 
         $uploadUrl = 'http://uploads.gdata.youtube.com/feeds/users/' . $this->apiName . '/uploads';
         $newEntry = $yt->insertEntry($myVideoEntry, $uploadUrl, 'Zend_Gdata_Youtube_VideoEntry');
 
         $this->videoId = $newEntry->getVideoId();
+        $videoThumbnails = $newEntry->getVideoThumbnails();
+        $this->videoThumb = $videoThumbnails[1]['url'];
+        $this->videoUrl = $newEntry->getVideoWatchPageUrl();
     }
 
     public function getVideoId() {
         return $this->videoId;
+    }
+
+    public function getVideoUrl() {
+        return $this->videoUrl;
+    }
+
+    public function getVideoThumb() {
+        return $this->videoThumb;
     }
 }
 

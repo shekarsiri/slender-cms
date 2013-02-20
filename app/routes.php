@@ -5,27 +5,29 @@
 // {
 
 
-    // Resource without Auth
-    Route::resource('login', 'LoginController');
+// Resource without Auth
+Route::resource('login', 'LoginController');
+Route::any('/videoupload', 'UploadController@uploadVideo');
+Route::any('/videoyoutubeupload', 'UploadController@uploadToYoutube');
+
+// Resources with Auth
+Route::group(array('before' => 'auth'), function()
+{
+    Route::get('/', 'HomeController@index');
+
+    Route::resource('sites', 'SitesController');
+    Route::resource('users', 'UsersController');
+    Route::resource('roles', 'RolesController');
+    Route::resource('videos', 'VideosController');
 
 
-    // Resources with Auth
-    Route::group(array('before' => 'auth'), function()
-    {
-        Route::get('/', 'HomeController@index');
 
-        Route::resource('sites', 'SitesController');
-        Route::resource('users', 'UsersController');
-        Route::resource('roles', 'RolesController');
-        Route::resource('videos', 'VideosController');
-        
+    //Route::get('password/forgot', array('uses' => 'PasswordController@forgot', 'as' => 'forgotpassword'));
+    //Route::post('password/send', array('uses' => 'PasswordController@send', 'as' => 'sendpassword'));
+    //Route::any('password/reset/{data}', array('uses' => 'PasswordController@reset', 'as' => 'resetpassword'));
 
-        //Route::get('password/forgot', array('uses' => 'PasswordController@forgot', 'as' => 'forgotpassword'));
-        //Route::post('password/send', array('uses' => 'PasswordController@send', 'as' => 'sendpassword'));
-        //Route::any('password/reset/{data}', array('uses' => 'PasswordController@reset', 'as' => 'resetpassword'));
-
-        // Route::any('sites', 'SitesController@index');
-    });
+    // Route::any('sites', 'SitesController@index');
+});
 
 Route::get('password/forgot', array('uses' => 'PasswordController@forgot', 'as' => 'forgotpassword'));
 Route::post('password/send', array('uses' => 'PasswordController@send', 'as' => 'sendpassword'));
