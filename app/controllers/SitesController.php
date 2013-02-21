@@ -9,4 +9,11 @@ class SitesController extends BaseController {
                             'url'   => 'URL'
                         );
 
+    public function switchsite($site)
+    {
+        if (in_array($site, array_keys(Session::get('sites'))) && is_array(Session::get('sites'))) {
+            Session::put('site', $site);
+        }
+        return Redirect::to('/');
+    }
 }

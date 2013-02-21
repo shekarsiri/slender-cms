@@ -58,6 +58,14 @@
         <link rel="shortcut icon" href="/assets/ico/favicon.png">
 
         <script type="text/javascript" src="/assets/js/jquery.v1.8.3.min.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $("#switchSite").change(function(){
+                    var val = $(this).val();
+                    document.location.href='/switchsite/'+val;
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -74,7 +82,7 @@
               <div class="nav-collapse collapse">
                 @if (Auth::check())
                   @if (Session::get('sites'))
-                  <select style="margin: 5px 0 5px 20px;" class="pull-right" onchange="">
+                  <select id="switchSite" style="margin: 5px 0 5px 20px;" class="pull-right">
                   @foreach (Session::get('sites') as $key => $val)
                       <option
                           @if ($key == Session::get('site'))

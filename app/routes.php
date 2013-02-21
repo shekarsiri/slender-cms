@@ -19,6 +19,7 @@ Route::group(array('before' => 'auth'), function()
     Route::resource('users', 'UsersController');
     Route::resource('roles', 'RolesController');
     Route::resource('videos', 'VideosController');
+    Route::any('/switchsite/{site}', 'SitesController@switchsite');
 
 
 
