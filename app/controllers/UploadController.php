@@ -38,7 +38,11 @@ class UploadController extends BaseController {
         $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
         $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
         $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : '';
-
+        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExt = array('avi','mpeg','flv','mp4','ogg','mov','wmv');
+        if (!in_array($ext, $allowedExt)) {
+            die('{"jsonrpc" : "2.0", "error" : {"code": 100, "message": "Wrong file type."}, "id" : "id"}');
+        }
         // Clean the fileName for security reasons
         $fileName = preg_replace('/[^\w\._]+/', '_', $fileName);
 

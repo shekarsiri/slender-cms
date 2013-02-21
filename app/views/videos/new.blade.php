@@ -97,6 +97,9 @@
                 .removeClass('progress-success');
         });
 
+        //o.addMimeType("video/3gpp, video/3gpp2, video/x-msvideo, video/mp4, video/mpeg, video/x-flv, video/ogg, video/x-sgi-movie, video/x-ms-wmv, application/vnd.rn-realmedia");
+
+
         var uploader = new plupload.Uploader({
             runtimes : 'html5,browserplus',
             browse_button : 'pickfiles',
@@ -104,7 +107,7 @@
             max_file_size : '50mb',
             url : '/videoupload',
             filters : [
-                {title : "Video files", extensions : "avi,mpeg,flv,mp4,ogg"}
+                //{title : "Video files", extensions : "avi,mpeg,flv,mp4,ogg,mov,wmv,rm"}
             ]
             // resize : {width : 320, height : 240, quality : 90}
         });
@@ -151,17 +154,29 @@
 
         uploader.bind('FileUploaded', function(up, file, response) {
             var resp = $.parseJSON(response.response);
-            var path = resp.path;
-            $('#' + file.id + " b").html("100%");
-            $('#upload_bar').parent()
-                .removeClass('active')
-                .addClass('progress-success');
+            if (resp.error) {
+                var err = resp.error;
+                $('#filelist').append("<div>Error: " + err.code +
+                    ", Message: " + err.message +
+                    (err.file ? ", File: " + err.file.name : "") +
+                    "</div>"
+                );
 
-            $('#pickfiles').attr('disabled', false);
-            $('#pickfiles').hide();
-            var buttonHtml = '<a rel="'+path+'" href="#" class="btn btn-primary" id="uploadToYoutube" style="position: relative; z-index: 0;">Upload To Youtube</a>';
-            buttonHtml = buttonHtml + ' <a href="#" class="btn" id="backToUpload" style="position: relative; z-index: 0;">Upload Another File</a>';
-            $('#pickfiles').after(buttonHtml);
+                up.refresh();
+            }
+            else {
+                var path = resp.path;
+                $('#' + file.id + " b").html("100%");
+                $('#upload_bar').parent()
+                    .removeClass('active')
+                    .addClass('progress-success');
+
+                $('#pickfiles').attr('disabled', false);
+                $('#pickfiles').hide();
+                var buttonHtml = '<a rel="'+path+'" href="#" class="btn btn-primary" id="uploadToYoutube" style="position: relative; z-index: 0;">Upload To Youtube</a>';
+                buttonHtml = buttonHtml + ' <a href="#" class="btn" id="backToUpload" style="position: relative; z-index: 0;">Upload Another File</a>';
+                $('#pickfiles').after(buttonHtml);
+            }
         });
     });
 </script>
