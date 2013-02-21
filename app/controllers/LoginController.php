@@ -59,6 +59,21 @@ class LoginController extends BaseController {
             //
             if (Auth::attempt(array('email' => $email, 'password' => $password)))
             {
+                $sites = $this->api->get('sites');
+                $accessibleSites = array();
+                if (count($sites->sites) && is_array($sites->sites)) {
+                    $auth = Auth::user()->permissions;
+                    foreach ($sites->sites as $site) {
+                        if ($auth->global || $auth->$site) {
+                            $accessibleSites[$site->slug] = $site->title;
+                        }
+                    }
+                }
+                if (count($accessibleSites)) {
+                    Session::put('sites', $accessibleSites);
+                    $currentSite = key($accessibleSites); // First key of assoc array
+                    Session::put('site', $currentSite);
+                }
                 // Redirect to the users page.
                 //
                 return Redirect::to('/')->with('success', 'You have logged in successfully');

@@ -73,11 +73,22 @@
               <a class="brand" href="/">Slender</a>
               <div class="nav-collapse collapse">
                 @if (Auth::check())
-                <p class="navbar-text pull-right">
-                  Logged in as <a href="#" class="navbar-link">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</a>
+                  @if (Session::get('sites'))
+                  <select style="margin: 5px 0 5px 20px;" class="pull-right" onchange="">
+                  @foreach (Session::get('sites') as $key => $val)
+                      <option
+                          @if ($key == Session::get('site'))
+                            selected="selected"
+                          @endif
+                          value="{{ $key }}">{{ $val }}</option>
+                  @endforeach
+                  </select>
+                  @endif
+                  <p class="navbar-text pull-right">
+                      Logged in as <a href="#" class="navbar-link">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</a>
 
-                  <a href="{{ URL::to('login/logout') }}">Logout</a>
-                </p>
+                      <a href="{{ URL::to('login/logout') }}">Logout</a>
+                  </p>
                 @endif
                 <ul class="nav">
                   <li class="active"><a href="/">Home</a></li>

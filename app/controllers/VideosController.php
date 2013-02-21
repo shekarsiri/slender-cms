@@ -13,9 +13,8 @@ class VideosController extends BaseController {
     public function __construct(){
         parent::__construct();
 
-        $this->api->setSite('ai');
-
-        //echo "<pre>"; print_r(Auth::user()->permissions); die();
+        //Session::put('site', 'ai');
+        $this->api->setSite(Session::get('site'));
     }
 
     /**
