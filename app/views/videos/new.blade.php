@@ -83,6 +83,14 @@
 
                     $this.remove();
                     $("#backToUpload").show();
+                }).fail(function() {
+                    $('#filelist').append("<div>Error: 500" +
+                        ", Message: Youtube connection failed" +
+                        "</div>"
+                    );
+
+                    $this.remove();
+                    $("#backToUpload").show();
                 });
         });
 
