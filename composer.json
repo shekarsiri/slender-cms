@@ -1,7 +1,8 @@
 {
 	"require": {
 		"laravel/framework": "4.0.*",
-        "zendframework/zend-http": "*"
+        "zendframework/zend-http": "*",
+        "engoyan/slender-cms": "*"
 	},
 	"autoload": {
 		"classmap": [
